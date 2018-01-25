@@ -1,0 +1,36 @@
+/* Theme transition Effect */
+*:after,
+*:before,
+a,
+p,
+h1,h2,h3,h4,h5,h6,
+button,
+.overlay,
+.team-detail,
+.detail-inner,
+.player-number,
+.product-img,
+.product-img img,
+.product-slider .owl-nav .owl-next,
+.product-slider .owl-nav .owl-prev,
+.cencel-product,
+.product-column-inner,
+.latest-tad-nav li.active::after,
+.owl-next,
+.owl-prev,
+.testimonial-slides .owl-pagination .owl-page,
+.nav-list > li > ul,
+.gallery-figure .btn-list li,
+.thmnail-arrows li span,
+.news-thumb-arrows li,
+.latest-news-thumb li,
+.latest-news-thumb li span,
+.video-slider-arrows li,
+.slick-arrow,
+.testimonial-thumnail li img,
+.product-column
+{-webkit-transition: all 0.5s ease-in-out;
+-moz-transition: all 0.5s ease-in-out;
+-ms-transition: all 0.5s ease-in-out;
+-o-transition: all 0.5s ease-in-out;
+transition: all 0.5s ease-in-out;}
