@@ -1,9 +1,11 @@
 <div class="page-heading-breadcrumbs">
     <div class="container">
-        <h2></h2>
-        <ul class="breadcrumbs">
-            <li><a href="#"></a></li>
-            <li></li>
-        </ul>
+        @section('page-heading-breadcrumbs-section')
+            <h2></h2>
+            <ul class="breadcrumbs">
+                <li><a href="#"></a></li>
+                <li></li>
+            </ul>
+        @show
     </div>
 </div>

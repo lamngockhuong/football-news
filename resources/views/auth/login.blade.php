@@ -35,6 +35,24 @@
                             'type' => 'submit',
                         ])}}
                         <a href="{{ route('register') }}" class="btn btn-lg btn-default btn-block">@lang('admin.auth.register')</a>
+                        <br />
+                        <a href="{{ url('/auth/facebook') }}" class="btn btn-block btn-social btn-facebook">
+                            <span class="fa fa-facebook"></span>
+                            @lang('public.header.facebook')
+                        </a>
+                        <a href="{{ url('/auth/twitter') }}" class="btn btn-block btn-social btn-twitter">
+                            <span class="fa fa-twitter"></span>
+                            @lang('public.header.tweet')
+                        </a>
+                        <a href="{{ url('/auth/linkedin') }}" class="btn btn-block btn-social btn-linkedin">
+                            <span class="fa fa-linkedin"></span>
+                            @lang('public.header.linkedin')
+                        </a>
+                        <a href="{{ url('/auth/google') }}" class="btn btn-block btn-social btn-google">
+                            <span class="fa fa-google"></span>
+                            @lang('public.header.google_plus')
+                        </a>
+                        <br />
                         <div class="text-right">
                             <a href="{{ route('password.request') }}" class="text-muted">@lang('admin.auth.forgot_password')</a>
                         </div>

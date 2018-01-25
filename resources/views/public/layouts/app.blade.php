@@ -25,9 +25,11 @@
         <!-- Page Heading & Breadcrumbs  -->
 
         <!-- Page Heading banner -->
-        <div class="overlay-dark theme-padding parallax-window" data-appear-top-offset="600" data-parallax="scroll"
-             data-image-src="{{ asset('templates/public/images/inner-banner/img-03.jpg') }}">
-        </div>
+        @section('page-heading-banner')
+            <div class="overlay-dark theme-padding parallax-window" data-appear-top-offset="600" data-parallax="scroll"
+                 data-image-src="{{ asset('templates/public/images/inner-banner/img-03.jpg') }}">
+            </div>
+        @show
         <!-- Page Heading banner -->
 
         <!-- Main Content -->
