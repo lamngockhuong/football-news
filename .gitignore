@@ -4,6 +4,7 @@
 /public/images
 /public/js
 /public/hot
+/public/templates
 /public/storage
 /public/mix-manifest.json
 /storage/*.key

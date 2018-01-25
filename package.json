@@ -25,5 +25,8 @@
         "lodash": "^4.17.4",
         "pixeden-stroke-7-icon": "^1.2.3",
         "vue": "^2.5.7"
+    },
+    "dependencies": {
+        "icomoon": "^1.0.0"
     }
 }

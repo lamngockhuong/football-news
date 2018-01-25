@@ -14,6 +14,10 @@ let mix = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');
 
+mix.copy('resources/assets/templates', 'public/templates');
+mix.js('resources/assets/js/public/app.js', 'public/templates/public/js')
+    .sass('resources/assets/sass/public/app.scss', 'public/templates/public/css');
+
 mix.copy('resources/assets/img/sidebar-*.jpg', 'public/images');
 mix.js('resources/assets/js/auth.js', 'public/js')
    .sass('resources/assets/sass/auth.scss', 'public/css');
