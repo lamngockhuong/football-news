@@ -8,6 +8,7 @@
             </div>
             <div class="content">
                 {{ Form::open(['route' => ['login']]) }}
+                    <fieldset>
                         <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                             {{ Form::label('email', trans('admin.auth.email')) }}
                             {{ Form::email('email', old('email'), ['class' => 'form-control', 'required']) }}
