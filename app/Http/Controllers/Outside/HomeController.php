@@ -3,12 +3,21 @@
 namespace App\Http\Controllers\Outside;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Repositories\Contracts\PostRepositoryInterface;
 
 class HomeController extends Controller
 {
+    protected $postRepository;
+
+    public function __construct(PostRepositoryInterface $postRepository)
+    {
+        $this->postRepository = $postRepository;
+    }
+
     public function index()
     {
-        return view('public.home');
+        $posts = $this->postRepository->paginate();
+
+        return view('public.home', compact('posts'));
     }
 }
