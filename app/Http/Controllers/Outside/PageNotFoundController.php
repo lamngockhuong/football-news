@@ -9,6 +9,6 @@ class PageNotFoundController extends Controller
 {
     public function index()
     {
-        return view('public.404');
+        return view('errors.404');
     }
 }

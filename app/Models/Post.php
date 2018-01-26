@@ -44,4 +44,22 @@ class Post extends Model
     {
         return $this->created_at->format('H:i d/m/Y');
     }
+
+    public function getSlugAttribute()
+    {
+        return str_slug($this->title);
+    }
+
+    public function getUrlAttribute()
+    {
+        return route('post.show', [
+            'slug' => str_slug($this->title),
+            'id' => $this->id,
+        ]);
+    }
+
+    public function getShareUrlAttribute()
+    {
+        return urlencode($this->url);
+    }
 }

@@ -445,6 +445,18 @@ jQuery(document).ready(function($) {
 
 	// ------- PrettyPhoto Video Popup ------- //
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
-    // ------- PrettyPhoto Video Popup ------- // 
+    // ------- PrettyPhoto Video Popup ------- //
+
+    // -- News detail -- //
+    $('#share-btn1').on('click', function (e) {
+        e.stopPropagation();
+        $(this).attr('style', 'display: none');
+        $('#show-social-icon1').removeClass('on-hover-share');
+    });
+
+    $(window).click(function() {
+        $('#show-social-icon1').addClass('on-hover-share');
+        $('#share-btn1').attr('style', 'display: block');
+    });
 
 });
