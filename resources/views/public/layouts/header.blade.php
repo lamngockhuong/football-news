@@ -18,16 +18,19 @@
                     </ul>
                 </li>
                 <li class="login-modal">
-                    <a href="#" class="login" data-toggle="modal" data-target="#login-modal">
-                        <i class="fa fa-user"></i>@lang('public.header.member_login')</a>
-                    <div class="modal fade" id="login-modal">
-                        <div class="login-form position-center-center">
-                            <h2>@lang('auth.login')
-                                <button class="close" data-dismiss="modal">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </h2>
-                            {{ Form::open(['route' => ['login']]) }}
+                    @if (auth()->guest())
+                        <a href="#" class="login" data-toggle="modal" data-target="#login-modal">
+                            <i class="fa fa-user"></i>@lang('public.header.member_login')
+                        </a>
+
+                        <div class="modal fade" id="login-modal">
+                            <div class="login-form position-center-center">
+                                <h2>@lang('auth.login')
+                                    <button class="close" data-dismiss="modal">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </h2>
+                                {{ Form::open(['route' => ['login']]) }}
                                 <div class="form-group">
                                     {{ Form::text('email', '', ['class' => 'form-control', 'placeholder' => 'domain@live.com']) }}
                                     <i class=" fa fa-envelope"></i>
@@ -47,38 +50,54 @@
                                 <div class="form-group">
                                     <button class="btn full-width red-btn">@lang('auth.login')</button>
                                 </div>
-                            {{ Form::close() }}
-                            <span class="or-reprater"></span>
-                            <ul class="others-login-way">
-                                <li><a class="facebook-bg" href="#"><i class="fa fa-facebook"></i>@lang('public.header.facebook')</a></li>
-                                <li><a class="tweet-bg" href="#"><i class="fa fa-twitter"></i>@lang('public.header.tweet')</a></li>
-                                <li><a class="linkedin-bg" href="#"><i class="fa fa-linkedin"></i>@lang('public.header.linkedin')</a></li>
-                                <li><a class="google-plus-bg" href="#"><i class="fa fa-google-plus"></i>@lang('public.header.google_plus')</a>
-                                </li>
-                            </ul>
+                                {{ Form::close() }}
+                                <span class="or-reprater"></span>
+                                <ul class="others-login-way">
+                                    <li>
+                                        <a class="facebook-bg" href="{{ url('/auth/facebook') }}">
+                                            <i class="fa fa-facebook"></i>@lang('public.header.facebook')
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="tweet-bg" href="{{ url('/auth/twitter') }}">
+                                            <i class="fa fa-twitter"></i>@lang('public.header.tweet')
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="linkedin-bg" href="{{ url('/auth/linkedin') }}">
+                                            <i class="fa fa-linkedin"></i>@lang('public.header.linkedin')
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="google-plus-bg" href="{{ url('/auth/google') }}">
+                                            <i class="fa fa-google-plus"></i>@lang('public.header.google_plus')
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal fade" id="login-modal-2">
-                        <div class="login-form position-center-center">
-                            <h2>@lang('auth.forgot_password')
-                                <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
-                                </button>
-                            </h2>
-                            {{ Form::open(['route' => ['password.email']]) }}
+                        <div class="modal fade" id="login-modal-2">
+                            <div class="login-form position-center-center">
+                                <h2>@lang('auth.forgot_password')
+                                    <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                                    </button>
+                                </h2>
+                                {{ Form::open(['route' => ['password.email']]) }}
                                 <div class="form-group">
                                     {{ Form::text('email', '', ['class' => 'form-control', 'placeholder' => 'domain@live.com']) }}
                                     <i class=" fa fa-envelope"></i>
                                 </div>
                                 <div class="form-group">
-                                    {{ Form::password('password', ['class' => 'form-control']) }}
-                                    <i class=" fa fa-lock"></i>
-                                </div>
-                                <div class="form-group">
                                     <button class="btn full-width red-btn">@lang('auth.send_reset_link')</button>
                                 </div>
-                            {{ Form::close() }}
+                                {{ Form::close() }}
+                            </div>
                         </div>
-                    </div>
+                    @else
+                        <a href="{{ route('admin.home') }}" class="login">
+                            <i class="fa fa-dashboard"></i>@lang('admin.title')
+                        </a>
+                    @endif
                 </li>
                 <li class="language-dropdown">
                     <a id="choses-lang" href="#"><i class="fa fa-globe"></i>@lang('public.header.lang_eng')<i class="fa fa-caret-down"></i></a>

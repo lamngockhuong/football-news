@@ -27,6 +27,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "bootstrap-social": "^5.1.1",
         "icomoon": "^1.0.0"
     }
 }
