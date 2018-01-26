@@ -39,4 +39,9 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function getPublishDateAttribute()
+    {
+        return $this->created_at->format('H:i d/m/Y');
+    }
 }

@@ -26,4 +26,8 @@ return [
         'sponcer' => 'Sponcer',
         'copyright' => '<p>© Copyright by <i class="red-color">Ngoc Khuong</i> All rights reserved.</p>',
     ],
+    'homepage' => [
+        'latest_news' => 'Latest News',
+        'read_more' => 'Read more',
+    ],
 ];
