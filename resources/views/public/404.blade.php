@@ -1,15 +1,14 @@
 @extends('public.layouts.app')
 @section('title', trans('public.404'))
-@section('page-heading-breadcrumbs-section')
-    <h2>@lang('public.404')</h2>
-    <ul class="breadcrumbs">
-        <li><a href="{{ route('home') }}">@lang('public.home')</a></li>
-        <li>@lang('public.404')</li>
-    </ul>
-@endsection
-@section('page-heading-banner')
-    <div class="overlay-dark theme-padding parallax-window" data-appear-top-offset="600" data-parallax="scroll" data-image-src="{{ asset('templates/public/images/inner-banner/img-03.jpg') }}">
-    </div>
+@section('page-heading')
+    @component('public.layouts.page-heading')
+        @slot('page_title')
+            @lang('public.404')
+        @endslot
+        @slot('inner_banner')
+            {{ asset('templates/public/images/inner-banner/img-03.jpg') }}
+        @endslot
+    @endcomponent
 @endsection
 @section('content')
     <main class="main-content">
