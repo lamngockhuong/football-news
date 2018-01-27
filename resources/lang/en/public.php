@@ -52,7 +52,12 @@ return [
     'player' => [
         'born' => 'Born',
         'position' => 'Position',
+        'team' => 'Team',
         'country' => 'Country',
+        'show' => [
+            'overview' => 'Overview',
+            'share' => 'Share player information'
+        ],
     ],
     'team' => [
         'title' => 'Team',

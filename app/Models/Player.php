@@ -40,4 +40,22 @@ class Player extends Model
     {
         return $this->hasMany(PlayerAward::class);
     }
+
+    public function getSlugAttribute()
+    {
+        return str_slug($this->name);
+    }
+
+    public function getUrlAttribute()
+    {
+        return route('player.show', [
+            'slug' => $this->slug,
+            'id' => $this->id,
+        ]);
+    }
+
+    public function getShareUrlAttribute()
+    {
+        return urlencode($this->url);
+    }
 }

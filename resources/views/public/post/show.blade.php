@@ -5,6 +5,9 @@
         @slot('page_title')
             {{ $post->category->name }}
         @endslot
+        @slot('page_title_breadcrumbs')
+            {{ $post->category->name }}
+        @endslot
         @slot('inner_banner')
             {{ asset('templates/public/images/inner-banner/img-03.jpg') }}
         @endslot
