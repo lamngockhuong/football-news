@@ -43,7 +43,7 @@
                                                     @foreach($posts as $post)
                                                         <li>
                                                             <img src="{{ $post->image }}" alt="{{ $post->title }}">
-                                                            <p>{{ $post->description }}...<a href="#">@lang('public.homepage.read_more')</a></p>
+                                                            <p>{{ $post->description }}...<a href="{{ $post->url }}">@lang('public.homepage.read_more')</a></p>
                                                         </li>
                                                     @endforeach
                                                 </ul>

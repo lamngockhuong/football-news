@@ -28,41 +28,82 @@ abstract class BaseRepository implements RepositoryInterface
 
     abstract public function getModel();
 
+    public function get()
+    {
+        $model = $this->model->get();
+        $this->makeModel();
+
+        return $model;
+    }
+
     /**
      * Retrieve all data of repository
-     * @param string $column
      * @return \Illuminate\Support\Collection|array
      */
-    public function all($columns = ['*'])
+    public function all()
     {
-        return $this->model->all();
+        $model = $this->model->all();
+        $this->resetModel();
+
+        return $model;
     }
 
     /**
      * Find data by id
      *
-     * @param       $id
-     * @param array $columns
+     * @param $id
      *
      * @return mixed
      */
-    public function find($id, $columns = ['*'])
+    public function find($id)
     {
         try {
-            return $this->model->findOrFail($id, $columns);
+            $model = $this->model->findOrFail($id);
+            $this->resetModel();
+
+            return $model;
         } catch (Exception $e) {
             throw new RepositoryException($e->getMessage());
         }
     }
 
     /**
+     * Find data by field and value
+     *
+     * @param $field
+     * @param $value
+     *
+     * @return mixed
+     */
+    public function findByField($field, $value = null)
+    {
+        return $this->model->where($field, '=', $value);
+    }
+
+    /**
+     * Find data by multiple fields
+     *
+     * @param array $where
+     *
+     * @return mixed
+     */
+    public function findWhere(array $where)
+    {
+        $this->applyConditions($where);
+
+        return $this;
+    }
+
+    /**
      * Retrieve all data of repository, paginated
      */
-    public function paginate($limit = null, $columns = ['*'])
+    public function paginate($limit = null)
     {
         $limit = is_null($limit) ? config('repository.pagination.limit') : $limit;
+        $model = $this->model->paginate($limit);
+        $this->resetModel();
 
-        return $this->model->paginate($limit, $columns);
+        return $model;
     }
 
     /**
@@ -74,7 +115,10 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function create(array $attributes)
     {
-        return $this->model->create($attributes);
+        $model = $this->model->create($attributes);
+        $this->resetModel();
+
+        return $model;
     }
 
     /**
@@ -103,7 +147,10 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function delete($id)
     {
-        return $this->model->destroy($id);
+        $model = $this->model->destroy($id);
+        $this->resetModel();
+
+        return $model;
     }
 
     /**
@@ -119,5 +166,31 @@ abstract class BaseRepository implements RepositoryInterface
         }
         
         return $this->model = $model;
+    }
+
+    /**
+     * @throws RepositoryException
+     */
+    public function resetModel()
+    {
+        $this->makeModel();
+    }
+
+    /**
+     * Applies the given where conditions to the model.
+     *
+     * @param array $where
+     * @return void
+     */
+    protected function applyConditions(array $where)
+    {
+        foreach ($where as $field => $value) {
+            if (is_array($value)) {
+                list($field, $condition, $val) = $value;
+                $this->model = $this->model->where($field, $condition, $val);
+            } else {
+                $this->model = $this->model->where($field, '=', $value);
+            }
+        }
     }
 }

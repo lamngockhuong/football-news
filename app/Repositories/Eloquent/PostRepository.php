@@ -11,4 +11,14 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
     {
         return Post::class;
     }
+
+    public function nextPost($id)
+    {
+        return $this->findWhere([['id', '>', $id]])->get()->first();
+    }
+
+    public function prevPost($id)
+    {
+        return $this->findWhere([['id', '<', $id]])->get()->last();
+    }
 }

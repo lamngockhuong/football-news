@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="author" content=""/>
+    <meta property="og:title" content="Ali Umair"/>
+    <meta property="og:description" content="Ali UMair is a web developer"/><meta property="og:image" content="../image" />
     <title>@yield('title')</title>
     {{ Html::style('templates/public/css/app.css') }}
     {{ Html::style('templates/public/css/main.css') }}

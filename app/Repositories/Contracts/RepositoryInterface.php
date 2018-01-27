@@ -4,32 +4,51 @@ namespace App\Repositories\Contracts;
 
 interface RepositoryInterface
 {
+    public function get();
+
     /**
      * Retrieve all data of repository
-     * @param string $column
      * @return \Illuminate\Support\Collection|array
      */
-    public function all($columns = ['*']);
+    public function all();
 
     /**
      * Find data by id
      *
-     * @param       $id
-     * @param array $columns
+     * @param $id
      *
      * @return mixed
      */
-    public function find($id, $columns = ['*']);
+    public function find($id);
+
+
+    /**
+     * Find data by field and value
+     *
+     * @param $field
+     * @param $value
+     *
+     * @return mixed
+     */
+    public function findByField($field, $value);
+
+    /**
+     * Find data by multiple fields
+     *
+     * @param array $where
+     *
+     * @return mixed
+     */
+    public function findWhere(array $where);
 
     /**
      * Retrieve all data of repository, paginated
      *
      * @param null $limit
-     * @param array $columns
      *
      * @return mixed
      */
-    public function paginate($limit = null, $columns = ['*']);
+    public function paginate($limit = null);
 
     /**
      * Save a new entity in repository
