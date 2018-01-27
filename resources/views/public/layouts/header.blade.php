@@ -118,7 +118,7 @@
             <div class="maga-drop-wrap">
                 <!-- Logo -->
                 <div class="logo">
-                    <a href=""><img src="{{ asset('templates/public/images/logo-4.png') }}" alt=""></a>
+                    <a href="{{ route('home') }}"><img src="{{ asset(config('setting.public_images_asset') . 'logo-4.png') }}" alt=""></a>
                 </div>
                 <!-- Logo -->
                 <!-- Search Bar -->
@@ -131,7 +131,9 @@
                 <!-- Search Bar -->
                 <!-- Nav List -->
                 <ul class="nav-list pull-right">
-                    <li><a href="">@lang('public.test')</a></li>
+                    <li>
+                        <a href="{{ route('home') }}">@lang('public.home')</a>
+                    </li>
                 </ul>
                 <!-- Nav List -->
             </div>

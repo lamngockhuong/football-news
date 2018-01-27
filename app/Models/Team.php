@@ -47,4 +47,9 @@ class Team extends Model
     {
         return $this->hasMany(Match::class, 'team2_id');
     }
+
+    public function getSlugAttribute()
+    {
+        return str_slug($this->name);
+    }
 }

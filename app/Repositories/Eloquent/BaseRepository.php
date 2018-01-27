@@ -10,14 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseRepository implements RepositoryInterface
 {
-    /**
-     * @var Application
-     */
     protected $app;
 
-    /**
-     * @var model
-     */
     protected $model;
 
     public function __construct(Container $app)
@@ -28,18 +22,14 @@ abstract class BaseRepository implements RepositoryInterface
 
     abstract public function getModel();
 
-    public function get()
+    public function get($columns = ['*'])
     {
-        $model = $this->model->get();
+        $model = $this->model->get($columns);
         $this->makeModel();
 
         return $model;
     }
 
-    /**
-     * Retrieve all data of repository
-     * @return \Illuminate\Support\Collection|array
-     */
     public function all()
     {
         $model = $this->model->all();
@@ -48,17 +38,10 @@ abstract class BaseRepository implements RepositoryInterface
         return $model;
     }
 
-    /**
-     * Find data by id
-     *
-     * @param $id
-     *
-     * @return mixed
-     */
-    public function find($id)
+    public function find($id, $columns = ['*'])
     {
         try {
-            $model = $this->model->findOrFail($id);
+            $model = $this->model->findOrFail($id, $columns);
             $this->resetModel();
 
             return $model;
@@ -67,26 +50,13 @@ abstract class BaseRepository implements RepositoryInterface
         }
     }
 
-    /**
-     * Find data by field and value
-     *
-     * @param $field
-     * @param $value
-     *
-     * @return mixed
-     */
     public function findByField($field, $value = null)
     {
-        return $this->model->where($field, '=', $value);
+        $this->model = $this->model->where($field, '=', $value);
+
+        return $this;
     }
 
-    /**
-     * Find data by multiple fields
-     *
-     * @param array $where
-     *
-     * @return mixed
-     */
     public function findWhere(array $where)
     {
         $this->applyConditions($where);
@@ -94,25 +64,15 @@ abstract class BaseRepository implements RepositoryInterface
         return $this;
     }
 
-    /**
-     * Retrieve all data of repository, paginated
-     */
-    public function paginate($limit = null)
+    public function paginate($limit = null, $columns = ['*'])
     {
         $limit = is_null($limit) ? config('repository.pagination.limit') : $limit;
-        $model = $this->model->paginate($limit);
+        $model = $this->model->paginate($limit, $columns);
         $this->resetModel();
 
         return $model;
     }
 
-    /**
-     * Save a new entity in repository
-     *
-     * @param array $attributes
-     *
-     * @return mixed
-     */
     public function create(array $attributes)
     {
         $model = $this->model->create($attributes);
@@ -121,14 +81,6 @@ abstract class BaseRepository implements RepositoryInterface
         return $model;
     }
 
-    /**
-     * Update a entity in repository by id
-     *
-     * @param array $attributes
-     * @param       $id
-     *
-     * @return mixed
-     */
     public function update(array $attributes, $model)
     {
         if (!$model instanceof Model) {
@@ -138,13 +90,6 @@ abstract class BaseRepository implements RepositoryInterface
         return $model->update($attributes);
     }
 
-    /**
-     * Delete a entity in repository by id
-     *
-     * @param $id
-     *
-     * @return int
-     */
     public function delete($id)
     {
         $model = $this->model->destroy($id);
@@ -153,10 +98,13 @@ abstract class BaseRepository implements RepositoryInterface
         return $model;
     }
 
-    /**
-     * @return Model
-     * @throws RepositoryException
-     */
+    public function with($relations)
+    {
+        $this->model = $this->model->with($relations);
+
+        return $this;
+    }
+
     public function makeModel()
     {
         $model = $this->app->make($this->getModel());
@@ -168,20 +116,11 @@ abstract class BaseRepository implements RepositoryInterface
         return $this->model = $model;
     }
 
-    /**
-     * @throws RepositoryException
-     */
     public function resetModel()
     {
         $this->makeModel();
     }
 
-    /**
-     * Applies the given where conditions to the model.
-     *
-     * @param array $where
-     * @return void
-     */
     protected function applyConditions(array $where)
     {
         foreach ($where as $field => $value) {

@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'public_images_asset' => 'templates/public/images/',
     'users' => [
         'coin_default' => 0,
         'is_actived_default' => 0,

@@ -49,4 +49,15 @@ return [
             'next_post' => 'Next Post',
         ],
     ],
+    'player' => [
+        'born' => 'Born',
+        'position' => 'Position',
+        'country' => 'Country',
+    ],
+    'team' => [
+        'title' => 'Team',
+        'show' => [
+            'follow_us_on' => 'Follow us on',
+        ],
+    ],
 ];

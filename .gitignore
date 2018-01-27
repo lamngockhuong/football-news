@@ -10,6 +10,7 @@
 /storage/debugbar
 /storage/*.key
 /vendor
+/.vscode
 /.idea
 /.vagrant
 Homestead.json
