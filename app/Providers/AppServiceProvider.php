@@ -43,5 +43,15 @@ class AppServiceProvider extends ServiceProvider
             Contracts\MatchRepositoryInterface::class,
             Eloquent\MatchRepository::class
         );
+
+        $this->app->bind(
+            Contracts\RankRepositoryInterface::class,
+            Eloquent\RankRepository::class
+        );
+
+        $this->app->bind(
+            Contracts\LeagueRepositoryInterface::class,
+            Eloquent\LeagueRepository::class
+        );
     }
 }

@@ -14,5 +14,6 @@ Route::namespace('Outside')->prefix('')->group(function () {
     Route::get('match/upcoming', 'MatchController@upcoming')->name('match.upcoming');
     Route::get('team/{slug}-{id}', 'TeamController@show')->name('team.show')->where(['slug' => '.+', 'id' => '[0-9]+']);
     Route::get('player/{slug}-{id}', 'PlayerController@show')->name('player.show')->where(['slug' => '.+', 'id' => '[0-9]+']);
+    Route::get('ranking/{slug}-{id}', 'RankController@show')->name('rank.show')->where(['slug' => '.+', 'id' => '[0-9]+']);
     Route::get('{slug}-{id}', 'PostController@show')->name('post.show')->where(['slug' => '.+', 'id' => '[0-9]+']);
 });
