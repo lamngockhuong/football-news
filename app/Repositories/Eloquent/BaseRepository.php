@@ -105,6 +105,20 @@ abstract class BaseRepository implements RepositoryInterface
         return $this;
     }
 
+    public function orderBy($column, $option = 'asc')
+    {
+        $this->model = $this->model->orderBy($column, $option);
+
+        return $this;
+    }
+
+    public function take($limit)
+    {
+        $this->model = $this->model->take($limit);
+
+        return $this;
+    }
+
     public function makeModel()
     {
         $model = $this->app->make($this->getModel());

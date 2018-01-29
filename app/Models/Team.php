@@ -52,4 +52,12 @@ class Team extends Model
     {
         return str_slug($this->name);
     }
+
+    public function getUrlAttribute()
+    {
+        return route('team.show', [
+            'slug' => $this->slug,
+            'id' => $this->id,
+        ]);
+    }
 }

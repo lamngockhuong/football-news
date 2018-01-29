@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Match extends Model
@@ -48,13 +49,23 @@ class Match extends Model
         return $this->hasMany(TeamAchievement::class);
     }
 
-    public function firstTeams()
+    public function firstTeam()
     {
         return $this->belongsTo(Team::class, 'team1_id');
     }
 
-    public function secondTeams()
+    public function secondTeam()
     {
         return $this->belongsTo(Team::class, 'team2_id');
+    }
+
+    public function getLeftTimeAttribute()
+    {
+        return Carbon::parse($this->start_time)->format('H:i d/m/Y');
+    }
+
+    public function getCountDownDateAttribute()
+    {
+        return Carbon::parse($this->start_time)->format('m/d/Y H:i:s');
     }
 }

@@ -418,11 +418,23 @@ jQuery(document).ready(function($) {
     // ------- Auto height function ------- //
 
 	// ------- Time Counter ------- //
-    jQuery('#countdown-1, #countdown-2, #countdown-3, #countdown-4, #countdown-5, #countdown-6, #comming-countdown').countdown({
-        date: '7/30/2017 2:17:59',
-        offset: -2100,
-        day: 'Day',
-        days: 'Days'
+    $('.countdown[id^=countdown-]').each(function(i) {
+        var date = $(this).data('countdown');
+        $(this).countdown({
+            date: date,
+            offset: +7,
+            day: 'Day',
+            days: 'Days'
+        });
+    });
+    $('#upcoming-countdown').each(function(i) {
+        var date = $(this).data('countdown');
+        $(this).countdown({
+            date: date,
+            offset: +7,
+            day: 'Day',
+            days: 'Days'
+        });
     });
     // ------- Time Counter ------- //
 

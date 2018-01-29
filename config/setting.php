@@ -40,4 +40,7 @@ return [
         'team2_goal_default' => 0,
         'coin_default' => 0,
     ],
+    'next_match' => 4,
+    'upcoming_pagination' => 10,
+    'upcoming_match_banner' => 1,
 ];

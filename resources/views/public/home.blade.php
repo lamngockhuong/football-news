@@ -31,6 +31,94 @@
                     <div class="row">
                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                             <div class="row">
+                                <!-- Next Matches -->
+                                <div class="col-sm-4 col-xs-5 r-full-width">
+                                    <div class="next-matches">
+                                        <h4>@lang('public.homepage.next_match')</h4>
+                                        <div id="matches-detail-slider" class="matches-detail-slider">
+                                            @foreach ($nextMatches as $match)
+                                                <!-- Item -->
+                                                <div class="item matches-detail next-match-detail">
+                                                    <div class="time-left">
+                                                        <ul id="countdown-{{ $loop->iteration }}" class="countdown" data-countdown="{{ $match->count_down_date }}">
+                                                            <li><span class="days">00</span>@lang('public.homepage.D'):</li>
+                                                            <li><span class="hours">00</span>@lang('public.homepage.H'):</li>
+                                                            <li><span class="minutes">00</span>@lang('public.homepage.M'):</li>
+                                                            <li><span class="seconds">00</span>@lang('public.homepage.S')</li>
+                                                        </ul>
+                                                    </div>
+                                                    <span class="left-date">{{ $match->left_time }}</span>
+                                                    <div class="team-btw-match">
+                                                        <ul>
+                                                            <li>
+                                                                <img src="{{ $match->firstTeam->logo }}"
+                                                                     alt="{{ $match->firstTeam->name }}" width="61">
+                                                                <a href="{{ $match->firstTeam->url }}">
+                                                                    <span>{{ $match->firstTeam->name }}</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <img src="{{ $match->secondTeam->logo }}"
+                                                                     alt="{{ $match->firstTeam->name }}" width="61">
+                                                                <a href="{{ $match->secondTeam->url }}">
+                                                                    <span>{{ $match->secondTeam->name }}</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- Item -->
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Next Matches -->
+
+                                <!-- Upcoming Fixture -->
+                                <div class="col-sm-8 col-xs-7 r-full-width">
+                                    <h3>
+                                        <span><i class="red-color">@lang('public.homepage.upcoming') </i>@lang('public.homepage.fixture')</span>
+                                        <a class="view-all pull-right" href="{{ route('match.upcoming') }}">
+                                            @lang('public.homepage.view_all')<i class="fa fa-angle-double-right"></i>
+                                        </a>
+                                    </h3>
+                                    <div class="upcoming-fixture">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    @foreach ($nextMatches as $match)
+                                                        <tr>
+                                                            <td>
+                                                                <div class="logo-width-name">
+                                                                    <img src="{{ $match->firstTeam->logo }}"
+                                                                         alt="{{ $match->firstTeam->name }}" width="29">
+                                                                    <a href="{{ $match->firstTeam->url }}">
+                                                                        {{ $match->firstTeam->name }}
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                            <td class="upcoming-fixture-date">
+                                                                <span>{{ $match->left_time }}</span>
+                                                            </td>
+                                                            <td>
+                                                                <div class="logo-width-name w-icon">
+                                                                    <img src="{{ $match->secondTeam->logo }}"
+                                                                         alt="{{ $match->secondTeam->name }}"
+                                                                         width="29">
+                                                                    <a href="{{ $match->secondTeam->url }}">
+                                                                        {{ $match->secondTeam->name }}
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Upcoming Fixture -->
+
                                 <!-- Latest News -->
                                 <div class="col-xs-12">
                                     <div class="latest-news-holder">
@@ -70,6 +158,11 @@
                                     </div>
                                 </div>
                                 <!-- Latest News -->
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <div class="row">
                             </div>
                         </div>
                     </div>
