@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use \App\Repositories\Contracts;
+use \App\Repositories\Eloquent;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,8 +25,18 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            'App\Repositories\Contracts\PostRepositoryInterface',
-            'App\Repositories\Eloquent\PostRepository'
+            Contracts\PostRepositoryInterface::class,
+            Eloquent\PostRepository::class
+        );
+
+        $this->app->bind(
+            Contracts\TeamRepositoryInterface::class,
+            Eloquent\TeamRepository::class
+        );
+
+        $this->app->bind(
+            Contracts\PlayerRepositoryInterface::class,
+            Eloquent\PlayerRepository::class
         );
     }
 }
