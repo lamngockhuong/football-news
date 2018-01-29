@@ -29,11 +29,11 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
             ->paginate($number);
     }
 
-    public function latestResults($number)
+    public function results($leagueId, $number)
     {
         return $this->with(['firstTeam', 'secondTeam'])
             ->orderBy('end_time', 'DESC')
             ->findWhere([['end_time', '<=', Carbon::today()->toDateString()]])
-            ->take($number)->get();
+            ->paginate($number);
     }
 }

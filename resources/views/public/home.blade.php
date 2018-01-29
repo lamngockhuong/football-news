@@ -41,10 +41,10 @@
                                                 <div class="item matches-detail next-match-detail">
                                                     <div class="time-left">
                                                         <ul id="countdown-{{ $loop->iteration }}" class="countdown" data-countdown="{{ $match->count_down_date }}">
-                                                            <li><span class="days">00</span>@lang('public.homepage.D'):</li>
-                                                            <li><span class="hours">00</span>@lang('public.homepage.H'):</li>
-                                                            <li><span class="minutes">00</span>@lang('public.homepage.M'):</li>
-                                                            <li><span class="seconds">00</span>@lang('public.homepage.S')</li>
+                                                            <li><span class="days">{{ config('setting.time_zero') }}</span>@lang('public.homepage.D'):</li>
+                                                            <li><span class="hours">{{ config('setting.time_zero') }}</span>@lang('public.homepage.H'):</li>
+                                                            <li><span class="minutes">{{ config('setting.time_zero') }}</span>@lang('public.homepage.M'):</li>
+                                                            <li><span class="seconds">{{ config('setting.time_zero') }}</span>@lang('public.homepage.S')</li>
                                                         </ul>
                                                     </div>
                                                     <span class="left-date">{{ $match->left_time }}</span>

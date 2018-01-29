@@ -84,6 +84,11 @@ return [
             'location_default' => 'Vietnam',
             'vs' => 'vs',
         ],
+        'result' => [
+            'title' => 'Match Results',
+            'match_score' => 'Match Score',
+            'location_default' => 'Vietnam',
+        ],
     ],
     'rank' => [
         'title' => 'Ranking',
