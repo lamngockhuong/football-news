@@ -5,6 +5,9 @@
         @slot('page_title')
             @lang('public.team.title')
         @endslot
+        @slot('page_title_breadcrumbs')
+            {{ $team->name }}
+        @endslot
         @slot('inner_banner')
             {{ asset('templates/public/images/inner-banner/img-03.jpg') }}
         @endslot
