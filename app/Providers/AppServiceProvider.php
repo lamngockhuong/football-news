@@ -40,26 +40,6 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            Contracts\TeamRepositoryInterface::class,
-            Eloquent\TeamRepository::class
-        );
-
-        $this->app->bind(
-            Contracts\PlayerRepositoryInterface::class,
-            Eloquent\PlayerRepository::class
-        );
-
-        $this->app->bind(
-            Contracts\TeamRepositoryInterface::class,
-            Eloquent\TeamRepository::class
-        );
-
-        $this->app->bind(
-            Contracts\PlayerRepositoryInterface::class,
-            Eloquent\PlayerRepository::class
-        );
-
-        $this->app->bind(
             Contracts\MatchRepositoryInterface::class,
             Eloquent\MatchRepository::class
         );

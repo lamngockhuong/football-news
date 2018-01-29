@@ -5,12 +5,16 @@
         @slot('page_title')
             @lang('public.403')
         @endslot
-        @slot('inner_banner')
-            {{ asset('templates/public/images/inner-banner/img-03.jpg') }}
+        @slot('page_title_breadcrumbs') 
+            @lang('public.403')
         @endslot
     @endcomponent
 @endsection
 @section('content')
+    <div class="overlay-dark theme-padding parallax-window"
+        data-appear-top-offset="600" data-parallax="scroll"
+        data-image-src="{{ asset('templates/public/images/inner-banner/img-03.jpg') }}">
+    </div>
     <main class="main-content">
         <!-- 403 Error -->
         <div class="error-holder theme-padding">
