@@ -28,10 +28,22 @@ return [
         'sponcer' => 'Sponcer',
         'copyright' => '<p>© Copyright by <i class="red-color">Ngoc Khuong</i> All rights reserved.</p>',
     ],
+    'pagination' => [
+        'previous' => 'Previous',
+        'next' => 'Next',
+    ],
     'widget' => [
         'archive' => 'Archive',
     ],
     'homepage' => [
+        'next_match' => 'Next Match',
+        'D' => 'D',
+        'H' => 'H',
+        'M' => 'M',
+        'S' => 'S',
+        'upcoming' => 'UPCOMING',
+        'fixture' => 'FIXTURE',
+        'view_all' => 'view all',
         'latest_news' => 'Latest News',
         'read_more' => 'Read more',
     ],
@@ -56,13 +68,21 @@ return [
         'country' => 'Country',
         'show' => [
             'overview' => 'Overview',
-            'share' => 'Share player information'
+            'share' => 'Share player information',
         ],
     ],
     'team' => [
         'title' => 'Team',
         'show' => [
             'follow_us_on' => 'Follow us on',
+        ],
+    ],
+    'match' => [
+        'upcoming' => [
+            'title' => 'Upcoming Matches',
+            'match_detail' => 'Match Detail',
+            'location_default' => 'Vietnam',
+            'vs' => 'vs',
         ],
     ],
 ];

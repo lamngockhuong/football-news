@@ -23,4 +23,8 @@ interface RepositoryInterface
     public function delete($id);
 
     public function with($relations);
+
+    public function orderBy($column, $option = 'asc');
+
+    public function take($limit);
 }

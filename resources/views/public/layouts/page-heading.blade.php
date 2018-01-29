@@ -10,9 +10,4 @@
         </div>
     </div>
     <!-- Page Heading & Breadcrumbs  -->
-
-    <!-- Page Heading banner -->
-    <div class="overlay-dark theme-padding parallax-window" data-appear-top-offset="600" data-parallax="scroll" data-image-src="{{ $inner_banner }}">
-    </div>
-    <!-- Page Heading banner -->
 @show

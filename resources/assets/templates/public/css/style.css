@@ -1586,3 +1586,12 @@ filter: blur(3px); }
 .reviews-figure h5{ font-size: 18px; color: #000; font-weight: bold; margin: 0 0 10px;}
 .reviews-figure span{ color: #cc0000; font-size: 16px; display: block; margin: 0 0 10px;}
 .position-custome{ position: fixed; right: 30px; top: 30px;}
+
+/* Home */
+#matches-detail-last-match {
+    background: url(../images/keper-img.jpg);
+}
+
+.next-match-detail {
+    background: url(../images/country-flags-bg.jpg);
+}
