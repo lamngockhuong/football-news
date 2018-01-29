@@ -65,7 +65,7 @@ $factory->define(Country::class, function (Faker $faker) {
 
 $factory->define(Team::class, function (Faker $faker) {
     return [
-        'name' => $faker->sentence,
+        'name' => $faker->word,
         'description' => $faker->sentence,
         'logo' => $faker->imageUrl,
         'country_id' => function () {

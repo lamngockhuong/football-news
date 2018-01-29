@@ -8,12 +8,12 @@
         @slot('page_title_breadcrumbs')
             {{ $post->category->name }}
         @endslot
-        @slot('inner_banner')
-            {{ asset('templates/public/images/inner-banner/img-03.jpg') }}
-        @endslot
     @endcomponent
 @endsection
 @section('content')
+    <div class="overlay-dark theme-padding parallax-window" data-appear-top-offset="600" data-parallax="scroll"
+         data-image-src="{{ asset('templates/public/images/inner-banner/img-03.jpg') }}">
+    </div>
     <main class="main-content">
         <!-- Blog Detail -->
         <div class="theme-padding white-bg">

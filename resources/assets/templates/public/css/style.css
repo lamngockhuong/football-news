@@ -568,7 +568,7 @@ z-index: 1; color: #f2f2f2;}
 .logo-width-name.w-icon{ position: relative;}
 .logo-width-name.w-icon::after{ content: "\f105"; height: 23px; width: 23px; border: 1px solid rgba(0,0,0,0.1); display: inline-block;
 border-radius: 100%; font-family: fontawesome; text-align: center; line-height: 20px; color: #999; margin: -20px 0 0 10px; cursor: pointer;}
-
+.logo-width-name a { display: inline; }
 /* Last Matches */
 .bg-fixed{ background: url(../images/pattern-bg.jpg);}
 .last-matches{ border-bottom: 1px solid; margin: 0 0 30px;}
