@@ -28,4 +28,12 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
             ->findWhere([['start_time', '>', Carbon::today()->toDateString()]])
             ->paginate($number);
     }
+
+    public function latestResults($number)
+    {
+        return $this->with(['firstTeam', 'secondTeam'])
+            ->orderBy('end_time', 'DESC')
+            ->findWhere([['end_time', '<=', Carbon::today()->toDateString()]])
+            ->take($number)->get();
+    }
 }

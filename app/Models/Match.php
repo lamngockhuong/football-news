@@ -64,6 +64,11 @@ class Match extends Model
         return Carbon::parse($this->start_time)->format('H:i d/m/Y');
     }
 
+    public function getEndTimeAttribute()
+    {
+        return Carbon::parse($this->start_time)->format('H:i d/m/Y');
+    }
+
     public function getCountDownDateAttribute()
     {
         return Carbon::parse($this->start_time)->format('m/d/Y H:i:s');

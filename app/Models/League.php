@@ -26,4 +26,9 @@ class League extends Model
     {
         return $this->hasMany(Rank::class);
     }
+
+    public function getSlugAttribute()
+    {
+        return str_slug($this->name);
+    }
 }
