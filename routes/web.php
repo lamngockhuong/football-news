@@ -1,8 +1,12 @@
 <?php
 
 Auth::routes();
-Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
-Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
+Route::namespace('Auth')->group(function () {
+    Route::get('auth/{provider}', 'AuthController@redirectToProvider');
+    Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
+    Route::get('verify/{token}', 'RegisterController@verify')->name('auth.verify');
+    Route::get('resend/{basecode}', 'RegisterController@resendConfirmLink')->name('auth.resend_confirm_link');
+});
 
 Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::get('', 'HomeController@index')->name('admin.home');

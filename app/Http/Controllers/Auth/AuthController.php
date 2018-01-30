@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use Auth;
 use Socialite;
 use Illuminate\Http\Request;
@@ -10,6 +11,13 @@ use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
+    protected $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function redirectToProvider($provider)
     {
         try {
@@ -34,16 +42,17 @@ class AuthController extends Controller
 
     public function findOrCreateUser($user, $provider)
     {
-        $authUser = User::where('provider_id', $user->id)->first();
+        $authUser = $this->userRepository->findByField('provider_id', $user->id)->get()->first();
 
         if ($authUser) {
             return $authUser;
         }
 
-        return User::create([
+        return $this->userRepository->create([
             'name' => $user->name,
             'provider' => $provider,
             'provider_id' => $user->id,
+            'is_actived' => config('setting.users.actived'),
         ]);
     }
 }

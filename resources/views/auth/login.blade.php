@@ -7,6 +7,11 @@
                 <h4 class="title">@lang('admin.auth.login')</h4>
             </div>
             <div class="content">
+                @if (session('confirm'))
+                    <div class="alert alert-success">
+                        {!! (session('confirm')) !!}
+                    </div>
+                @endif
                 {{ Form::open(['route' => ['login']]) }}
                     <fieldset>
                         <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
