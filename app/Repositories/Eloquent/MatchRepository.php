@@ -38,6 +38,15 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
             ->paginate($number);
     }
 
+    public function nextLeagueMatchesPagination($leagueId, $number)
+    {
+        return $this->findByField('league_id', $leagueId)
+            ->with(['firstTeam', 'secondTeam'])
+            ->orderBy('start_time', 'DESC')
+            ->findWhere([['start_time', '>', Carbon::today()->toDateString()]])
+            ->paginate($number);
+    }
+
     public function results($leagueId, $number)
     {
         return $this->with(['firstTeam', 'secondTeam'])

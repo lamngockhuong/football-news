@@ -78,6 +78,7 @@ return [
         ],
     ],
     'match' => [
+        'title' => 'Match',
         'upcoming' => [
             'title' => 'Upcoming Matches',
             'match_detail' => 'Match Detail',
@@ -106,36 +107,14 @@ return [
             ],
         ],
     ],
-    'rank' => [
-        'title' => 'Ranking',
-        'show' => [
-            'table' => [
-                'index' => '#',
-                'team' => 'Team',
-                'won' => 'W',
-                'drawn' => 'D',
-                'lost' => 'L',
-                'goals_for' => 'GF',
-                'goals_against' => 'GA',
-                'goal_difference' => 'GD',
-                'score' => 'Point',
-            ],
-        ],
+    'league' => [
+        'title' => 'League',
+        'year' => 'Year',
     ],
-    'rank' => [
-        'title' => 'Ranking',
-        'show' => [
-            'table' => [
-                'index' => '#',
-                'team' => 'Team',
-                'won' => 'W',
-                'drawn' => 'D',
-                'lost' => 'L',
-                'goals_for' => 'GF',
-                'goals_against' => 'GA',
-                'goal_difference' => 'GD',
-                'score' => 'Point',
-            ],
-        ],
+    'search' => [
+        'title' => 'Search',
+        'no_results' => 'No results match!',
+        'result' => 'Result',
+        'ranking' => 'Ranking',
     ],
 ];

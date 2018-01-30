@@ -1595,3 +1595,7 @@ filter: blur(3px); }
 .next-match-detail {
     background: url(../images/country-flags-bg.jpg);
 }
+
+.large-post-detail p a {
+    display: inline;
+}

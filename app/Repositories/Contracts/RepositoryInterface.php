@@ -14,6 +14,24 @@ interface RepositoryInterface
 
     public function findWhere(array $where);
 
+    public function orWhere($column, $operator = null, $value = null);
+
+    public function orWhereIn($column, $values);
+
+    public function where($condition, $operator = null, $value = null);
+
+    public function whereBetween($colunm, $values);
+
+    public function whereNotIn($colunm, $values);
+
+    public function whereNull($colunm);
+
+    public function whereNotNull($colunm);
+
+    public function whereHas($relations, $function);
+
+    public function orWhereHas($relations, $function);
+
     public function paginate($limit = null, $columns = ['*']);
 
     public function create(array $attributes);

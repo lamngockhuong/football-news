@@ -31,4 +31,28 @@ class League extends Model
     {
         return str_slug($this->name);
     }
+
+    public function getUpcomingUrlAttribute()
+    {
+        return route('match.upcoming_league', [
+            'slug' => $this->slug,
+            'id' => $this->id,
+        ]);
+    }
+
+    public function getResultUrlAttribute()
+    {
+        return route('match.result', [
+            'slug' => $this->slug,
+            'id' => $this->id,
+        ]);
+    }
+
+    public function getRankUrlAttribute()
+    {
+        return route('rank.show', [
+            'slug' => $this->slug,
+            'id' => $this->id,
+        ]);
+    }
 }
