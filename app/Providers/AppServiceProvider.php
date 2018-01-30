@@ -53,5 +53,10 @@ class AppServiceProvider extends ServiceProvider
             Contracts\LeagueRepositoryInterface::class,
             Eloquent\LeagueRepository::class
         );
+
+        $this->app->bind(
+            Contracts\UserRepositoryInterface::class,
+            Eloquent\UserRepository::class
+        );
     }
 }

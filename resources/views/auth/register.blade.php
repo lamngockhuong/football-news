@@ -7,6 +7,11 @@
                 <h4 class="title">@lang('admin.auth.register')</h4>
             </div>
             <div class="content">
+                @if (session('register_status'))
+                    <div class="alert alert-warning">
+                        @lang('auth.register_successfully')
+                    </div>
+                @endif
                 {{ Form::open(['route' => ['register']]) }}
                     <fieldset>
                         <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">

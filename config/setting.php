@@ -6,6 +6,7 @@ return [
         'coin_default' => 0,
         'is_actived_default' => 0,
         'is_admin_default' => 0,
+        'actived' => 1,
     ],
     'categories' => [
         'parent_default' => 0,

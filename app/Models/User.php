@@ -51,4 +51,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(MatchEvent::class);
     }
+
+    public function userActivation()
+    {
+        return $this->hasOne(UserActivation::class);
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
 }
