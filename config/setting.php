@@ -42,5 +42,7 @@ return [
     ],
     'next_match' => 4,
     'upcoming_pagination' => 10,
+    'result_pagination' => 10,
     'upcoming_match_banner' => 1,
+    'time_zero' => '00',
 ];

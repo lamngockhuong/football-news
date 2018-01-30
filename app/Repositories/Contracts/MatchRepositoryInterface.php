@@ -6,5 +6,7 @@ interface MatchRepositoryInterface extends RepositoryInterface
 {
     public function nextMatches($number);
 
-    public function latestResults($number);
+    public function nextMatchesPagination($number);
+
+    public function results($leagueId, $number);
 }

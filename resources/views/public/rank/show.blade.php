@@ -24,10 +24,10 @@
                     <div class="match-vs-heading position-center-center">
                         <div class="left-tiem-acounter">
                             <ul id="upcoming-countdown" class="countdown" data-countdown="{{ $upcomingMatch->count_down_date }}">
-                                <li><span class="days">00</span>@lang('public.homepage.D'):</li>
-                                <li><span class="hours">00</span>@lang('public.homepage.H'):</li>
-                                <li><span class="minutes">00</span>@lang('public.homepage.M'):</li>
-                                <li><span class="seconds">00</span>@lang('public.homepage.S')</li>
+                                <li><span class="days">{{ config('setting.time_zero') }}</span>@lang('public.homepage.D'):</li>
+                                <li><span class="hours">{{ config('setting.time_zero') }}</span>@lang('public.homepage.H'):</li>
+                                <li><span class="minutes">{{ config('setting.time_zero') }}</span>@lang('public.homepage.M'):</li>
+                                <li><span class="seconds">{{ config('setting.time_zero') }}</span>@lang('public.homepage.S')</li>
                             </ul>
                         </div>
                         <span class="result-vs">@lang('public.match.upcoming.vs')</span>

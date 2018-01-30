@@ -1,12 +1,12 @@
 @extends('public.layouts.app')
-@section('title', trans('public.match.upcoming.title'))
+@section('title', $league->name . ' - ' . trans('public.match.result.title'))
 @section('page-heading')
     @component('public.layouts.page-heading')
         @slot('page_title')
-            @lang('public.match.upcoming.title')
+            {{ $league->name }}
         @endslot
         @slot('page_title_breadcrumbs')
-            @lang('public.match.upcoming.title')
+            @lang('public.match.result.title')
         @endslot
     @endcomponent
 @endsection
@@ -62,38 +62,48 @@
                     <div class="matches-shedule-holder">
                         <div class="col-lg-9 col-sm-8">
                             <!-- Matches Dates Shedule -->
-                            <div class="matches-dates-shedule">
+                            <div class="matches-dates-shedule style-2">
+                                <div class="result-top-bar">
+                                    <span class="pull-left">@lang('public.match.result.match_score')</span>
+                                    <span class="pull-right">{{ $league->name }}</span>
+                                </div>
                                 <ul>
-                                    @foreach ($upcomingMatches as $match)
+                                    @foreach ($results as $match)
                                         <li>
                                             <span class="pull-left">
-                                                <img src="{{ $match->firstTeam->logo }}" alt="{{ $match->firstTeam->name }}" width="66">
+                                                <img src="{{ $match->firstTeam->logo }}"
+                                                    alt="{{ $match->firstTeam->name }}"
+                                                    width="66">
                                             </span>
                                             <span class="pull-right">
-                                                <img src="{{ $match->secondTeam->logo }}" alt="{{ $match->secondTeam->name }}" width="66">
+                                                <img src="{{ $match->secondTeam->logo }}"
+                                                    alt="{{ $match->secondTeam->name }}"
+                                                    width="66">
                                             </span>
                                             <div class="detail">
-                                                <a href="#">
-                                                    @lang('public.match.upcoming.match_detail')
-                                                    <i class="fa fa-angle-double-right"></i>
-                                                </a>
-                                                <strong>
-                                                    {{ $match->firstTeam->name }}
-                                                    <i class="red-color"> {{ $match->left_time }} </i>
-                                                    {{ $match->secondTeam->name }}
-                                                </strong>
-                                                <span class="location-marker">
-                                                    <i class="fa fa-map-marker"></i>
-                                                    @lang('public.match.upcoming.location_default')
+                                                <span class="result-vs">
+                                                    {{ $match->team1_goal }}-{{ $match->team2_goal }}
                                                 </span>
+                                                <div class="location-marker">
+                                                    <ul>
+                                                        <li>
+                                                            <i class="fa fa-clock-o"></i>
+                                                            {{ $match->end_time }}
+                                                        </li>
+                                                        <li>
+                                                            <i class="fa fa-map-marker"></i>
+                                                            @lang('public.match.upcoming.location_default')
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </li>
                                     @endforeach
                                 </ul>
                             </div>
                             <!-- Matches Dates Shedule -->
-                            @if (count($upcomingMatches) && $upcomingMatches->lastPage() > 1)
-                                {{ $upcomingMatches->render('public.pagination.custom') }}
+                            @if (count($results) && $results->lastPage() > 1)
+                                {{ $results->render('public.pagination.custom') }}
                             @endif
                         </div>
                     </div>
