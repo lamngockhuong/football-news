@@ -12,6 +12,12 @@ class LeagueRepository extends BaseRepository implements LeagueRepositoryInterfa
         return League::class;
     }
 
+    public function leagues($numberPerPage)
+    {
+        return $this->orderBy('id', 'desc')
+            ->paginate($numberPerPage);
+    }
+
     public function search($keyword)
     {
         return $this->where('name', 'like', "%$keyword%")

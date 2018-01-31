@@ -13,5 +13,11 @@
                 <p>@lang('admin.sidebar_menu.country')</p>
             </a>
         </li>
+        <li>
+            <a href="{{ route('leagues.index') }}">
+                <i class="fa fa-futbol-o"></i>
+                <p>@lang('admin.sidebar_menu.league')</p>
+            </a>
+        </li>
     </ul>
 @endsection

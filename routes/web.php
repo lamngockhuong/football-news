@@ -11,6 +11,7 @@ Route::namespace('Auth')->group(function () {
 Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::get('', 'HomeController@index')->name('admin.home');
     Route::resource('countries', 'CountryController', ['except' => ['create', 'show']]);
+    Route::resource('leagues', 'LeagueController', ['except' => ['create', 'show']]);
 });
 
 Route::namespace('Outside')->prefix('')->group(function () {
