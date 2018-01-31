@@ -124,8 +124,10 @@
                 <!-- Search Bar -->
                 <div class="search-bar-holder pull-right">
                     <div class="search-bar">
-                        <input type="text" class="form-control" placeholder="@lang('public.header.search_placeholder')">
-                        <i class="fa fa-search"></i>
+                        {{ Form::open(['route' => 'search', 'method' => 'GET', 'id' => 'search-form']) }}
+                            {{ Form::text('q', null, ['class' => 'form-control', 'placeholder' => trans('public.header.search_placeholder')]) }}
+                            <i class="fa fa-search" onclick="event.preventDefault(); document.getElementById('search-form').submit();"></i>
+                        {{ Form::close() }}
                     </div>
                 </div>
                 <!-- Search Bar -->
@@ -133,6 +135,15 @@
                 <ul class="nav-list pull-right">
                     <li>
                         <a href="{{ route('home') }}">@lang('public.home')</a>
+                    </li>
+                    <li>
+                        <a href="#">@lang('public.match.title')</a>
+                        <ul>
+                            <li><a href="{{ route('match.upcoming') }}">@lang('public.match.upcoming.title')</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">@lang('public.team.title')</a>
                     </li>
                 </ul>
                 <!-- Nav List -->

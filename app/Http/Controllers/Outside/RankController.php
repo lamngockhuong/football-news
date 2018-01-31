@@ -37,10 +37,6 @@ class RankController extends Controller
             $upcomingMatch = $this->matchRepository->nextMatches(config('setting.upcoming_match_banner'))->first();
             $ranks = $this->rankRepository->ranking($league->id);
 
-            if (!count($ranks)) {
-                throw new RepositoryException();
-            }
-
             return view('public.rank.show', compact('ranks', 'upcomingMatch', 'league'));
         } catch (RepositoryException $e) {
             return view('errors.404');

@@ -63,10 +63,6 @@ class MatchController extends Controller
             $upcomingMatch = $this->matchRepository->nextMatches(config('setting.upcoming_match_banner'))->first();
             $results = $this->matchRepository->results($league->id, config('setting.result_pagination'));
 
-            if (!count($results)) {
-                throw new RepositoryException();
-            }
-
             return view('public.match.result', compact('results', 'upcomingMatch', 'league'));
         } catch (RepositoryException $e) {
             return view('errors.404');

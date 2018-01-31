@@ -64,6 +64,70 @@ abstract class BaseRepository implements RepositoryInterface
         return $this;
     }
 
+    public function orWhere($column, $operator = null, $value = null)
+    {
+        $this->model = $this->model->orWhere($column, $operator, $value);
+
+        return $this;
+    }
+
+    public function orWhereIn($column, $values)
+    {
+        $values = is_array($values) ? $values : [$values];
+        $this->model = $this->model->orWhereIn($column, $values);
+
+        return $this;
+    }
+
+    public function where($condition, $operator = null, $value = null)
+    {
+        $this->model = $this->model->where($condition, $operator, $value);
+
+        return $this;
+    }
+
+    public function whereBetween($colunm, $values)
+    {
+        $this->model = $this->model->whereBetween($colunm, $values);
+
+        return $this;
+    }
+
+    public function whereNotIn($colunm, $values)
+    {
+        $this->model = $this->model->whereNotIn($colunm, $values);
+
+        return $this;
+    }
+
+    public function whereNull($colunm)
+    {
+        $this->model = $this->model->whereNull($colunm);
+
+        return $this;
+    }
+
+    public function whereNotNull($colunm)
+    {
+        $this->model = $this->model->whereNotNull($colunm);
+
+        return $this;
+    }
+
+    public function whereHas($relations, $function)
+    {
+        $this->model = $this->model->whereHas($relations, $function);
+
+        return $this;
+    }
+
+    public function orWhereHas($relations, $function)
+    {
+        $this->model = $this->model->orWhereHas($relations, $function);
+
+        return $this;
+    }
+
     public function paginate($limit = null, $columns = ['*'])
     {
         $limit = is_null($limit) ? config('repository.pagination.limit') : $limit;
