@@ -64,14 +64,41 @@
 @import "lbd/responsive";
 
 .alert[data-notify="container"] {
-  [data-notify="dismiss"] {
-    top: 50% !important;
-    margin-top: -13px !important;
-  }
+    [data-notify="dismiss"] {
+        top: 50% !important;
+        margin-top: -13px !important;
+    }
 }
 
 div[data-notify="container"]:not(.alert-with-icon) {
     span[data-notify="icon"] ~ span[data-notify="message"] {
         margin-left: 45px;
+    }
+}
+
+/* Fix header table for search form */
+.card {
+    .header {
+        padding: 15px 15px 5px;
+    }
+}
+
+/* Add td table no result */
+.table {
+    tr {
+        td#no-results {
+            text-align: center;
+        }
+    }
+}
+
+/* Fix button in form */
+.table {
+    tr {
+        td {
+            form {
+                display: inline;
+            }
+        }
     }
 }
