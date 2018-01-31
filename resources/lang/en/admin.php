@@ -14,6 +14,7 @@ return [
         'home' => 'Home',
         'dashboard' => 'Dashboard',
         'country' => 'Country',
+        'league' => 'League',
     ],
     'footer_menu' => [
         'home' => 'Home',
@@ -74,6 +75,61 @@ return [
                 'remove_button_title' => 'Remove',
                 'message' => [
                     'delete_confirm' => 'Do you want to remove this country?',
+                ],
+            ],
+        ],
+    ],
+    'league' => [
+        'index' => [
+            'title' => 'Leagues',
+            'add' => [
+                'title' => 'Add new league',
+                'name' => 'Name',
+                'name_placeholder' => 'League',
+                'year' => 'Year',
+                'year_placeholder' => '1996',
+                'description' => 'description',
+                'description_placeholder' => '',
+                'submit_button' => 'Add',
+                'message' => [
+                    'add_success' => 'Add league successfully',
+                    'add_error' => 'Add league fail',
+                ],
+            ],
+            'edit' => [
+                'title' => 'Edit the league',
+                'name' => 'Name',
+                'name_placeholder' => 'League',
+                'year' => 'Year',
+                'year_placeholder' => '1996',
+                'description' => 'description',
+                'description_placeholder' => '',
+                'submit_button' => 'Edit',
+                'message' => [
+                    'edit_success' => 'Edit the league successfully',
+                    'not_found' => 'The league not found',
+                ],
+            ],
+            'delete' => [
+                'message' => [
+                    'delete_success' => 'Remove league successfully',
+                    'not_found' => 'The league not found',
+                    'delete_error' => 'Remove league fail',
+                    'delete_error1451' => 'Information is being used, can not be deleted',
+                ],
+            ],
+            'table' => [
+                'title' => 'Leagues',
+                'search_placeholder' => 'Please enter the keyword...',
+                'id' => '#',
+                'name' => 'Name',
+                'description' => 'Description',
+                'year' => 'Year',
+                'no_results' => 'No results',
+                'edit_button_title' => 'Edit League',
+                'remove_button_title' => 'Remove',
+                'message' => [
+                    'delete_confirm' => 'Do you want to remove this league?',
                 ],
             ],
         ],
