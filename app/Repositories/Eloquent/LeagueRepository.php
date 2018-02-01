@@ -22,6 +22,6 @@ class LeagueRepository extends BaseRepository implements LeagueRepositoryInterfa
     {
         return $this->where('name', 'like', "%$keyword%")
             ->orWhere('description', 'like', "%$keyword%")
-            ->paginate(config('repository.limit'));
+            ->paginate(config('repository.pagination.limit'));
     }
 }

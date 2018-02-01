@@ -25,10 +25,10 @@ class CountryController extends Controller
         $keyword = $request->q;
 
         if (isset($keyword)) {
-            $countries = $this->countryRepository->search($keyword, config('repository.limit'));
+            $countries = $this->countryRepository->search($keyword, config('repository.pagination.limit'));
             $countries->appends($request->only('q'));
         } else {
-            $countries = $this->countryRepository->countries(config('repository.limit'));
+            $countries = $this->countryRepository->countries(config('repository.pagination.limit'), [['id', 'desc']]);
         }
 
         return view('admin.country.index', compact('countries'));
@@ -60,7 +60,7 @@ class CountryController extends Controller
     {
         try {
             $country = $this->countryRepository->find($id); // throw RepositoryException when can not found
-            $countries = $this->countryRepository->countries(config('repository.limit'));
+            $countries = $this->countryRepository->countries(config('repository.pagination.limit'));
 
             return view('admin.country.index', compact('country', 'countries'));
         } catch (RepositoryException $e) {

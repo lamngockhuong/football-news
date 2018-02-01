@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use Exception;
 use App\Exception\RepositoryException;
 use App\Repositories\Contracts\RepositoryInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,9 +31,13 @@ abstract class BaseRepository implements RepositoryInterface
         return $model;
     }
 
-    public function all()
+    public function all($columns = ['*'])
     {
-        $model = $this->model->all();
+        if ($this->model instanceof Builder) {
+            $model = $this->model->get($columns);
+        } else {
+            $model = $this->model->all($columns);
+        }
         $this->resetModel();
 
         return $model;

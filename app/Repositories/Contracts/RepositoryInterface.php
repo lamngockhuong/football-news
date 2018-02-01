@@ -6,7 +6,7 @@ interface RepositoryInterface
 {
     public function get($columns = ['*']);
 
-    public function all();
+    public function all($columns = ['*']);
 
     public function find($id, $columns = ['*']);
 

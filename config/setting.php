@@ -2,6 +2,7 @@
 
 return [
     'public_images_asset' => 'templates/public/images/',
+    'public_team_logo' => 'team/logo',
     'users' => [
         'coin_default' => 0,
         'is_actived_default' => 0,
