@@ -8,21 +8,29 @@ use Exception;
 use Input;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use App\Http\Requests\TeamRequest;
+use App\Http\Requests\PlayerRequest;
 use App\Exception\RepositoryException;
 use App\Http\Controllers\Controller;
+use App\Repositories\Contracts\PlayerRepositoryInterface;
+use App\Repositories\Contracts\PositionRepositoryInterface;
 use App\Repositories\Contracts\TeamRepositoryInterface;
 use App\Repositories\Contracts\CountryRepositoryInterface;
 
-class TeamController extends Controller
+class PlayerController extends Controller
 {
+    protected $playerRepository;
+    protected $positionRepository;
     protected $teamRepository;
     protected $countryRepository;
 
     public function __construct(
+        PlayerRepositoryInterface $playerRepository,
+        PositionRepositoryInterface $positionRepository,
         TeamRepositoryInterface $teamRepository,
         CountryRepositoryInterface $countryRepository
     ) {
+        $this->playerRepository = $playerRepository;
+        $this->positionRepository = $positionRepository;
         $this->teamRepository = $teamRepository;
         $this->countryRepository = $countryRepository;
     }
@@ -37,38 +45,40 @@ class TeamController extends Controller
         // q: query parameter
         $keyword = $request->q;
 
+        $positions = $this->positionRepository->positions(config('repository.pagination.all'), [['name', 'asc']]);
+        $teams = $this->teamRepository->teams(config('repository.pagination.all'), [['name', 'asc']]);
         $countries = $this->countryRepository->countries(config('repository.pagination.all'), [['name', 'asc']]);
         if (isset($keyword)) {
-            $teams = $this->teamRepository->search($keyword, config('repository.pagination.limit'));
-            $teams->appends($request->only('q'));
+            $players = $this->playerRepository->search($keyword, config('repository.pagination.limit'));
+            $players->appends($request->only('q'));
         } else {
-            $teams = $this->teamRepository->teamsWithCountry(config('repository.pagination.limit'), [['id', 'desc']]);
+            $players = $this->playerRepository->players(config('repository.pagination.limit'), [['id', 'desc']]);
         }
 
-        return view('admin.team.index', compact('teams', 'countries'));
+        return view('admin.player.index', compact('positions', 'teams', 'countries', 'players'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\TeamRequest  $request
+     * @param  App\Http\Requests\PlayerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TeamRequest $request)
+    public function store(PlayerRequest $request)
     {
         try {
-            $path = $this->upload($request, config('setting.public_team_logo'));
-            $request->merge(['logo' => $path]);
-            $this->teamRepository->create($request->all());
+            $path = $this->upload($request, config('setting.public_player_avatar'));
+            $request->merge(['avatar' => $path]);
+            $this->playerRepository->create($request->all());
 
-            $message = trans('admin.team.index.add.message.add_success');
+            $message = trans('admin.player.index.add.message.add_success');
             $notification = [
                 'message' => $message,
                 'type' => 'success',
             ];
         } catch (Exception $e) {
             Storage::delete($path);
-            $message = trans('admin.team.index.add.message.add_error');
+            $message = trans('admin.player.index.add.message.add_error');
             $notification = [
                 'message' => $message,
                 'type' => 'danger',
@@ -87,13 +97,15 @@ class TeamController extends Controller
     public function edit($id)
     {
         try {
-            $team = $this->teamRepository->find($id); // throw RepositoryException when can not found
-            $teams = $this->teamRepository->teams(config('repository.pagination.limit'), [['id', 'desc']]);
+            $player = $this->playerRepository->find($id); // throw RepositoryException when can not found
+            $players = $this->playerRepository->players(config('repository.pagination.limit'), [['id', 'desc']]);
+            $positions = $this->positionRepository->positions(config('repository.pagination.all'), [['name', 'asc']]);
+            $teams = $this->teamRepository->teams(config('repository.pagination.all'), [['name', 'asc']]);
             $countries = $this->countryRepository->countries(config('repository.pagination.all'), [['name', 'asc']]);
 
-            return view('admin.team.index', compact('team', 'teams', 'countries'));
+            return view('admin.player.index', compact('player', 'players', 'positions', 'teams', 'countries'));
         } catch (RepositoryException $e) {
-            $message = trans('admin.team.index.edit.message.not_found');
+            $message = trans('admin.player.index.edit.message.not_found');
             $notification = [
                 'message' => $message,
                 'type' => 'danger',
@@ -106,31 +118,31 @@ class TeamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Http\Requests\TeamRequest  $request
+     * @param  App\Http\Requests\PlayerRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TeamRequest $request, $id)
+    public function update(PlayerRequest $request, $id)
     {
         try {
-            $team = $this->teamRepository->find($id); // throw RepositoryException when can not found
-            $path = $this->upload($request, config('setting.public_team_logo'));
+            $player = $this->playerRepository->find($id); // throw RepositoryException when can not found
+            $path = $this->upload($request, config('setting.public_player_avatar'));
             if ($path) {
-                Storage::delete($team->logo);
-                $request->merge(['logo' => $path]);
+                Storage::delete($player->avatar);
+                $request->merge(['avatar' => $path]);
             }
 
-            $this->teamRepository->update($request->all(), $team);
-            $message = trans('admin.team.index.edit.message.edit_success');
+            $this->playerRepository->update($request->all(), $player);
+            $message = trans('admin.player.index.edit.message.edit_success');
             $notification = [
                 'message' => $message,
                 'type' => 'success',
             ];
 
-            return redirect()->route('teams.index')->with('notification', $notification);
+            return redirect()->route('players.index')->with('notification', $notification);
         } catch (RepositoryException $e) {
             Storage::delete($path);
-            $message = trans('admin.team.index.edit.message.not_found');
+            $message = trans('admin.player.index.edit.message.not_found');
             $notification = [
                 'message' => $message,
                 'type' => 'danger',
@@ -149,30 +161,30 @@ class TeamController extends Controller
     public function destroy($id)
     {
         try {
-            $team = $this->teamRepository->find($id); // throw RepositoryException when can not found
-            Storage::delete($team->logo);
-            $this->teamRepository->delete($id);
+            $player = $this->playerRepository->find($id); // throw RepositoryException when can not found
+            Storage::delete($player->avatar);
+            $this->playerRepository->delete($id);
 
-            $message = trans('admin.team.index.delete.message.delete_success');
+            $message = trans('admin.player.index.delete.message.delete_success');
             $notification = [
                 'message' => $message,
                 'type' => 'success',
             ];
         } catch (RepositoryException $e) {
-            $message = trans('admin.team.index.delete.message.not_found');
+            $message = trans('admin.player.index.delete.message.not_found');
             $notification = [
                 'message' => $message,
                 'type' => 'danger',
             ];
         } catch (QueryException $e) {
-            $message = trans('admin.team.index.delete.message.delete_error' . $e->errorInfo[1]);
+            $message = trans('admin.player.index.delete.message.delete_error' . $e->errorInfo[1]);
             $notification = [
                 'message' => $message,
                 'type' => 'danger',
             ];
         }
 
-        return redirect()->route('teams.index')->with('notification', $notification);
+        return redirect()->route('players.index')->with('notification', $notification);
     }
 
     private function upload(Request $request, $directory, $directoryWithDate = true)

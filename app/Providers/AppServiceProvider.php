@@ -63,5 +63,10 @@ class AppServiceProvider extends ServiceProvider
             Contracts\CountryRepositoryInterface::class,
             Eloquent\CountryRepository::class
         );
+
+        $this->app->bind(
+            Contracts\PositionRepositoryInterface::class,
+            Eloquent\PositionRepository::class
+        );
     }
 }

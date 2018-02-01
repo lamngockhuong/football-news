@@ -14,16 +14,31 @@ class TeamRepository extends BaseRepository implements TeamRepositoryInterface
 
     public function teams($number, $orders)
     {
+        $repository = $this;
+        foreach ($orders as $order) {
+            $repository = $repository->orderBy($order[0], $order[1]);
+        }
+
+        switch ($number) {
+            case config('repository.pagination.all'):
+                return $repository->all();
+            case config('repository.pagination.limit'):
+                return $repository->paginate($number);
+        }
+    }
+
+    public function teamsWithCountry($number, $orders)
+    {
         $repository = $this->with('country');
         foreach ($orders as $order) {
             $repository = $repository->orderBy($order[0], $order[1]);
         }
 
         switch ($number) {
-        case config('repository.pagination.all'):
-            return $repository->all();
-        case config('repository.pagination.limit'):
-            return $repository->paginate($number);
+            case config('repository.pagination.all'):
+                return $repository->all();
+            case config('repository.pagination.limit'):
+                return $repository->paginate($number);
         }
     }
 

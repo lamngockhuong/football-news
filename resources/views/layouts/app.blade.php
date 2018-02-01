@@ -25,5 +25,11 @@
                 <p>@lang('admin.sidebar_menu.team')</p>
             </a>
         </li>
+        <li>
+            <a href="{{ route('players.index') }}">
+                <i class="pe-7s-users"></i>
+                <p>@lang('admin.sidebar_menu.player')</p>
+            </a>
+        </li>
     </ul>
 @endsection
