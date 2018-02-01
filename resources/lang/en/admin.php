@@ -15,6 +15,7 @@ return [
         'dashboard' => 'Dashboard',
         'country' => 'Country',
         'league' => 'League',
+        'team' => 'Team',
     ],
     'footer_menu' => [
         'home' => 'Home',
@@ -130,6 +131,62 @@ return [
                 'remove_button_title' => 'Remove',
                 'message' => [
                     'delete_confirm' => 'Do you want to remove this league?',
+                ],
+            ],
+        ],
+    ],
+    'team' => [
+        'index' => [
+            'title' => 'Teams',
+            'add' => [
+                'title' => 'Add new team',
+                'name' => 'Name',
+                'name_placeholder' => 'Team',
+                'logo' => 'Logo',
+                'country' => 'Country',
+                'description' => 'description',
+                'description_placeholder' => '',
+                'submit_button' => 'Add',
+                'message' => [
+                    'add_success' => 'Add team successfully',
+                    'add_error' => 'Add team fail',
+                ],
+            ],
+            'edit' => [
+                'title' => 'Edit the team',
+                'name' => 'Name',
+                'name_placeholder' => 'Team',
+                'logo' => 'Logo',
+                'country' => 'Country',
+                'description' => 'description',
+                'description_placeholder' => '',
+                'submit_button' => 'Edit',
+                'message' => [
+                    'edit_success' => 'Edit the team successfully',
+                    'not_found' => 'The team not found',
+                ],
+            ],
+            'delete' => [
+                'message' => [
+                    'delete_success' => 'Remove team successfully',
+                    'not_found' => 'The team not found',
+                    'delete_error' => 'Remove team fail',
+                    'delete_error1451' => 'Information is being used, can not be deleted',
+                ],
+            ],
+            'table' => [
+                'title' => 'Teams',
+                'search_placeholder' => 'Please enter the keyword...',
+                'id' => '#',
+                'logo' => 'Logo',
+                'name' => 'Name',
+                'country' => 'Country',
+                'description' => 'Description',
+                'no_results' => 'No results',
+                'edit_button_title' => 'Edit team',
+                'remove_button_title' => 'Remove',
+                'message' => [
+                    'delete_confirm' => 'Do you want to remove this team?',
                 ],
             ],
         ],

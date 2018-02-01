@@ -31,10 +31,10 @@ class LeagueController extends Controller
         $keyword = $request->q;
 
         if (isset($keyword)) {
-            $leagues = $this->leagueRepository->search($keyword, config('repository.limit'));
+            $leagues = $this->leagueRepository->search($keyword, config('repository.pagination.limit'));
             $leagues->appends($request->only('q'));
         } else {
-            $leagues = $this->leagueRepository->leagues(config('repository.limit'));
+            $leagues = $this->leagueRepository->leagues(config('repository.pagination.limit'));
         }
 
         return view('admin.league.index', compact('leagues'));
@@ -77,7 +77,7 @@ class LeagueController extends Controller
     {
         try {
             $league = $this->leagueRepository->find($id); // throw RepositoryException when can not found
-            $leagues = $this->leagueRepository->leagues(config('repository.limit'));
+            $leagues = $this->leagueRepository->leagues(config('repository.pagination.limit'));
 
             return view('admin.league.index', compact('league', 'leagues'));
         } catch (RepositoryException $e) {

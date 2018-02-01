@@ -19,5 +19,11 @@
                 <p>@lang('admin.sidebar_menu.league')</p>
             </a>
         </li>
+        <li>
+            <a href="{{ route('teams.index') }}">
+                <i class="pe-7s-flag"></i>
+                <p>@lang('admin.sidebar_menu.team')</p>
+            </a>
+        </li>
     </ul>
 @endsection

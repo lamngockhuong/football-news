@@ -60,4 +60,9 @@ class Team extends Model
             'id' => $this->id,
         ]);
     }
+
+    public function getLogoUrlAttribute()
+    {
+        return asset(config('filesystems.disks.public.url') . '/' . $this->attributes['logo']);
+    }
 }
