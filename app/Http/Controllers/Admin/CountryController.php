@@ -60,7 +60,7 @@ class CountryController extends Controller
     {
         try {
             $country = $this->countryRepository->find($id); // throw RepositoryException when can not found
-            $countries = $this->countryRepository->countries(config('repository.pagination.limit'));
+            $countries = $this->countryRepository->countries(config('repository.pagination.limit'), [['id', 'desc']]);
 
             return view('admin.country.index', compact('country', 'countries'));
         } catch (RepositoryException $e) {
@@ -123,6 +123,6 @@ class CountryController extends Controller
             ];
         }
 
-        return redirect()->back()->with('notification', $notification);
+        return redirect()->route('countries.index')->with('notification', $notification);
     }
 }

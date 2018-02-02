@@ -58,4 +58,9 @@ class Player extends Model
     {
         return urlencode($this->url);
     }
+
+    public function getAvatarUrlAttribute()
+    {
+        return asset(config('filesystems.disks.public.url') . '/' . $this->attributes['avatar']);
+    }
 }

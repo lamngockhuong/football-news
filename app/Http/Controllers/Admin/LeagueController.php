@@ -152,6 +152,6 @@ class LeagueController extends Controller
             ];
         }
 
-        return redirect()->back()->with('notification', $notification);
+        return redirect()->route('leagues.index')->with('notification', $notification);
     }
 }
