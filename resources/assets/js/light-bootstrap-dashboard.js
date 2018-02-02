@@ -151,6 +151,21 @@ $(document).ready(function () {
     $('.delete-button').click(function () {
         return confirm($(this).data('delete-confirm'));
     });
+
+    // match time
+    $('#starttime').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm:ss',
+    });
+    $('#endtime').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm:ss',
+        useCurrent: false,
+    });
+    $("#starttime").on("dp.change", function (e) {
+        $('#endtime').data("DateTimePicker").minDate(e.date);
+    });
+    $("#endtime").on("dp.change", function (e) {
+        $('#starttime').data("DateTimePicker").maxDate(e.date);
+    });
 });
 
 // activate collapse right menu when the windows is resized

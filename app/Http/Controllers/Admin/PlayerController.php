@@ -184,7 +184,11 @@ class PlayerController extends Controller
             ];
         }
 
-        return redirect()->route('players.index')->with('notification', $notification);
+        if (str_contains(url()->previous(), route('players.edit', ['id' => $id]))) {
+            return redirect()->route('players.index')->with('notification', $notification);
+        }
+
+        return redirect()->back()->with('notification', $notification);
     }
 
     private function upload(Request $request, $directory, $directoryWithDate = true)

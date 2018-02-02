@@ -123,6 +123,10 @@ class CountryController extends Controller
             ];
         }
 
-        return redirect()->route('countries.index')->with('notification', $notification);
+        if (str_contains(url()->previous(), route('countries.edit', ['id' => $id]))) {
+            return redirect()->route('countries.index')->with('notification', $notification);
+        }
+
+        return redirect()->back()->with('notification', $notification);
     }
 }

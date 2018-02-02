@@ -20,6 +20,12 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('matches.index') }}">
+                <i class="pe-7s-arc"></i>
+                <p>@lang('admin.sidebar_menu.match')</p>
+            </a>
+        </li>
+        <li>
             <a href="{{ route('teams.index') }}">
                 <i class="pe-7s-flag"></i>
                 <p>@lang('admin.sidebar_menu.team')</p>

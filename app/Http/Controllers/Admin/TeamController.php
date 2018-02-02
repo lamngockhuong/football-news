@@ -172,7 +172,11 @@ class TeamController extends Controller
             ];
         }
 
-        return redirect()->route('teams.index')->with('notification', $notification);
+        if (str_contains(url()->previous(), route('teams.edit', ['id' => $id]))) {
+            return redirect()->route('teams.index')->with('notification', $notification);
+        }
+
+        return redirect()->back()->with('notification', $notification);
     }
 
     private function upload(Request $request, $directory, $directoryWithDate = true)

@@ -12,7 +12,7 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+    .sass('resources/assets/sass/app.scss', 'public/css');
 
 mix.copy('resources/assets/templates', 'public/templates');
 mix.js('resources/assets/js/public/app.js', 'public/templates/public/js')
@@ -20,12 +20,12 @@ mix.js('resources/assets/js/public/app.js', 'public/templates/public/js')
 
 mix.copy('resources/assets/img/sidebar-*.jpg', 'public/images');
 mix.js('resources/assets/js/auth.js', 'public/js')
-   .sass('resources/assets/sass/auth.scss', 'public/css');
+    .sass('resources/assets/sass/auth.scss', 'public/css');
 mix.js('resources/assets/js/light-bootstrap-dashboard.js', 'public/js')
-   .sass('resources/assets/sass/light-bootstrap-dashboard.scss', 'public/css');
+    .sass('resources/assets/sass/light-bootstrap-dashboard.scss', 'public/css');
 mix.extract([
-  'lodash', 'chartist', 'jquery',
-  'bootstrap-notify', 'bootstrap-select', 'bootstrap-switch',
-  'vue', 'axios'
+    'lodash', 'chartist', 'jquery',
+    'bootstrap-notify', 'bootstrap-select', 'bootstrap-switch',
+    'vue', 'axios'
 ], 'public/js/vendor.js');
 mix.version();

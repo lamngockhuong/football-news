@@ -13,6 +13,69 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
         return Match::class;
     }
 
+    public function matches(...$args)
+    {
+        $repository = $this;
+        $count = count($args);
+        switch ($count) {
+            case 2:
+                // retrieve all matches or by pagination
+                $number = $args[0];
+                $orders = $args[1];
+                break;
+            case 3:
+                // retrieve all matches or by pagination
+                $number = $args[0];
+                $orders = $args[1];
+                $with = $args[2];
+                $repository = $repository->with($with);
+                break;
+        }
+
+        foreach ($orders as $order) {
+            $repository = $repository->orderBy($order[0], $order[1]);
+        }
+
+        switch ($number) {
+            case config('repository.pagination.all'):
+                return $repository->all();
+            case config('repository.pagination.limit'):
+                return $repository->paginate($number);
+        }
+    }
+
+    public function matchesForTable($number)
+    {
+        return $this->matches($number, [['id', 'desc']], ['firstTeam', 'secondTeam', 'league']);
+    }
+
+    public function search($keyword)
+    {
+        return $this->with(['firstTeam', 'secondTeam', 'league'])
+            ->where('name', 'like', "%$keyword%")
+            ->orWhere('description', 'like', "%$keyword%")
+            ->orWhere('start_time', 'like', "%$keyword%")
+            ->orWhere('end_time', 'like', "%$keyword%")
+            ->orWhere('team1_goal', '=', "$keyword")
+            ->orWhere('team2_goal', '=', "$keyword")
+            ->orWhereHas(
+                'firstTeam',
+                function ($query) use ($keyword) {
+                    $query->where('name', 'like', "%$keyword%");
+                }
+            )->orWhereHas(
+                'secondTeam',
+                function ($query) use ($keyword) {
+                    $query->where('name', 'like', "%$keyword%");
+                }
+            )->orWhereHas(
+                'league',
+                function ($query) use ($keyword) {
+                    $query->where('name', 'like', "%$keyword%");
+                }
+            )->paginate(config('repository.pagination.limit'));
+    }
+
     public function nextMatches($number)
     {
         return $this->with(['firstTeam', 'secondTeam'])

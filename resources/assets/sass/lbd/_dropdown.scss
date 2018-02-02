@@ -1,5 +1,5 @@
 .dropdown-menu{
-    visibility: hidden;
+    // visibility: hidden; // make datetimepicker error
     margin: 0;
     padding: 0;
     border-radius: $border-radius-extreme;
@@ -7,7 +7,7 @@
     z-index: 9000;
     position: absolute;
     
-    @include opacity(0); 
+    // @include opacity(); // make datetimepicker error
     @include box-shadow($dropdown-shadow);
         
     .open &{

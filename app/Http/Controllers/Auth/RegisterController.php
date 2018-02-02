@@ -95,7 +95,9 @@ class RegisterController extends Controller
         $user = $this->userRepository->findByField('email', $email)->get()->first();
         if ($user && !$user->is_actived) {
             $token = str_random(25);
-            $user->userActivation->update(['token' => $token]);
+            $userActivation = $user->userActivation ?: new UserActivation;
+            $userActivation->token = $token;
+            $user->userActivation()->save($userActivation);
             dispatch(new SendVerificationEmail($user));
 
             return redirect()->back()->with('confirm', trans('auth.confirm_resent'));

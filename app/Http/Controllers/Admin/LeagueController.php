@@ -34,7 +34,7 @@ class LeagueController extends Controller
             $leagues = $this->leagueRepository->search($keyword, config('repository.pagination.limit'));
             $leagues->appends($request->only('q'));
         } else {
-            $leagues = $this->leagueRepository->leagues(config('repository.pagination.limit'));
+            $leagues = $this->leagueRepository->leagues(config('repository.pagination.limit'), [['id', 'desc']]);
         }
 
         return view('admin.league.index', compact('leagues'));
@@ -77,7 +77,7 @@ class LeagueController extends Controller
     {
         try {
             $league = $this->leagueRepository->find($id); // throw RepositoryException when can not found
-            $leagues = $this->leagueRepository->leagues(config('repository.pagination.limit'));
+            $leagues = $this->leagueRepository->leagues(config('repository.pagination.limit'), [['id', 'desc']]);
 
             return view('admin.league.index', compact('league', 'leagues'));
         } catch (RepositoryException $e) {
@@ -152,6 +152,10 @@ class LeagueController extends Controller
             ];
         }
 
-        return redirect()->route('leagues.index')->with('notification', $notification);
+        if (str_contains(url()->previous(), route('leagues.edit', ['id' => $id]))) {
+            return redirect()->route('leagues.index')->with('notification', $notification);
+        }
+
+        return redirect()->back()->with('notification', $notification);
     }
 }

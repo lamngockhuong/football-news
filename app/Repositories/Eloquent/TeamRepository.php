@@ -30,7 +30,7 @@ class TeamRepository extends BaseRepository implements TeamRepositoryInterface
     public function teamsWithCountry($number, $orders)
     {
         $repository = $this->with('country');
-        foreach ($orders as $order) {
+        foreach ($orders as $order) {   
             $repository = $repository->orderBy($order[0], $order[1]);
         }
 

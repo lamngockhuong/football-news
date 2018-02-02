@@ -4,6 +4,8 @@ namespace App\Repositories\Contracts;
 
 interface MatchRepositoryInterface extends RepositoryInterface
 {
+    public function matches(...$args);
+
     public function nextMatches($number);
 
     public function nextLeagueMatches($leagueId, $number);
