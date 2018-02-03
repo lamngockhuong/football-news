@@ -181,6 +181,14 @@ abstract class BaseRepository implements RepositoryInterface
         return $this;
     }
 
+    public function groupBy($colunms)
+    {
+        $colunms = is_array($colunms) ? $colunms : [$colunms];
+        $this->model = $this->model->groupBy($colunms);
+
+        return $this;
+    }
+
     public function take($limit)
     {
         $this->model = $this->model->take($limit);

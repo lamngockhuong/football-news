@@ -166,6 +166,48 @@ $(document).ready(function () {
     $("#endtime").on("dp.change", function (e) {
         $('#starttime').data("DateTimePicker").maxDate(e.date);
     });
+
+    // league ranking select
+    $('#league-ranking-select').change(function () {
+        var league = $(this).val();
+        if (league > 0) {
+            location.href = '?' + $(this).attr('name') + '=' + $(this).val();
+        } else {
+            location.href = location.href.split('?')[0];
+        }
+    });
+
+    // edit ranking point
+    $('[id^=edit-ranking-point-], [id^=ranking-point-] span').on('click', function (i) {
+        var id = $(this).data('id');
+        var span = $('#ranking-point-' + id + ' span');
+        var input = $('#ranking-point-' + id + ' input');
+        var status = span.css('display');
+        span.css('display', input.css('display'));
+        input.css('display', status);
+        i.stopPropagation();
+    });
+
+    $('[id^=ranking-point-] input').on('click', function (i) {
+        i.stopPropagation();
+    });
+
+    $('[id^=ranking-point-] input').change(function (i) {
+        var point = $(this).val();
+        $.post($(this).data('url'), {
+            _method: 'PUT',
+            point: point,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        }, function (data, status) {
+            location.href = '';
+        });
+        i.stopPropagation();
+    });
+
+    $(document).click(function () {
+        $('[id^=ranking-point-] input').hide();
+        $('[id^=ranking-point-] span').show();
+    });
 });
 
 // activate collapse right menu when the windows is resized

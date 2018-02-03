@@ -13,4 +13,6 @@ interface MatchRepositoryInterface extends RepositoryInterface
     public function nextMatchesPagination($number);
 
     public function results($leagueId, $number);
+
+    public function checkTeamHasRank($teamId, $leagueId);
 }

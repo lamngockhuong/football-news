@@ -44,5 +44,7 @@ interface RepositoryInterface
 
     public function orderBy($column, $option = 'asc');
 
+    public function groupBy($colunms);
+
     public function take($limit);
 }

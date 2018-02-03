@@ -7,7 +7,7 @@ Route::namespace('Auth')->group(function () {
     Route::get('verify/{token}', 'RegisterController@verify')->name('auth.verify');
     Route::get('resend/{basecode}', 'RegisterController@resendConfirmLink')->name('auth.resend_confirm_link');
 });
-
+    
 Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::get('', 'HomeController@index')->name('admin.home');
     Route::resource('countries', 'CountryController', ['except' => ['create', 'show']]);
@@ -15,6 +15,7 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::resource('teams', 'TeamController', ['except' => ['create', 'show']]);
     Route::resource('players', 'PlayerController', ['except' => ['create', 'show']]);
     Route::resource('matches', 'MatchController', ['except' => ['create', 'show']]);
+    Route::resource('ranks', 'RankController', ['except' => ['create', 'store', 'show', 'edit']]);
 }); 
 
 Route::namespace('Outside')->prefix('')->group(function () {

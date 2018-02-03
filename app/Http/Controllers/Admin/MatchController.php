@@ -109,11 +109,11 @@ class MatchController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Http\Requests\matchRequest  $request
+     * @param  App\Http\Requests\MatchRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(matchRequest $request, $id)
+    public function update(MatchRequest $request, $id)
     {
         try {
             $match = $this->matchRepository->find($id); // throw RepositoryException when can not found

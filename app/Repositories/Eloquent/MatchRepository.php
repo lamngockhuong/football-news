@@ -117,4 +117,15 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
             ->findWhere([['end_time', '<=', Carbon::today()->toDateString()]])
             ->paginate($number);
     }
+
+    public function checkTeamHasRank($teamId, $leagueId)
+    {
+        return $this->where('league_id', '=', $leagueId)
+            ->where(
+                function ($query) use ($teamId) {
+                    $query->where('team1_id', '=', $teamId)
+                        ->orWhere('team2_id', '=', $teamId);
+                }
+            )->get();
+    }
 }
