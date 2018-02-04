@@ -11,4 +11,6 @@ interface RankRepositoryInterface extends RepositoryInterface
     public function leaguesInRanking();
 
     public function search($keyword, $leagueId);
+
+    public function updateOrCreateRank($teamId, $leagueId, $values = []);
 }

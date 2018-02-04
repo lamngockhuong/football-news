@@ -36,6 +36,8 @@ interface RepositoryInterface
 
     public function create(array $attributes);
 
+    public function updateOrCreate(array $attributes, array $values = []);
+
     public function update(array $attributes, $id);
 
     public function delete($id);

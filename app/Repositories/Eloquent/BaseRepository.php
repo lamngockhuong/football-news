@@ -150,6 +150,14 @@ abstract class BaseRepository implements RepositoryInterface
         return $model;
     }
 
+    public function updateOrCreate(array $attributes, array $values = [])
+    {
+        $model = $this->model->updateOrCreate($attributes, $values);
+        $this->resetModel();
+
+        return $model;
+    }
+
     public function update(array $attributes, $model)
     {
         if (!$model instanceof Model) {

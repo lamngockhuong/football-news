@@ -23,16 +23,29 @@ class MatchRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|string|max:100',
-            'description' => 'max:255',
-            'team1_id' => 'required|integer|not_in:0',
-            'team2_id' => 'required|integer|not_in:0',
-            'team1_goal' => 'integer',
-            'team2_goal' => 'integer',
-            'start_time' => 'required|date',
-            'end_time' => 'required|date|after:start_time',
-            'league_id' => 'required|integer|not_in:0',
-        ];
+        switch ($this->method()) {
+            case 'POST':
+                return [
+                    'name' => 'required|string|max:100',
+                    'description' => 'max:255',
+                    'team1_id' => 'required|integer|not_in:0',
+                    'team2_id' => 'required|integer|not_in:0|different:team1_id',
+                    'start_time' => 'required|date',
+                    'end_time' => 'required|date|after:start_time',
+                    'league_id' => 'required|integer|not_in:0',
+                ];
+        case 'PUT':
+            return [
+                    'name' => 'required|string|max:100',
+                    'description' => 'max:255',
+                    'team1_id' => 'required|integer|not_in:0',
+                    'team2_id' => 'required|integer|not_in:0|different:team1_id',
+                    'team1_goal' => 'integer',
+                    'team2_goal' => 'integer',
+                    'start_time' => 'required|date',
+                    'end_time' => 'required|date|after:start_time',
+                    'league_id' => 'required|integer|not_in:0',
+                ];
+        }
     }
 }

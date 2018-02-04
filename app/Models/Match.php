@@ -22,8 +22,6 @@ class Match extends Model
         'league_id',
     ];
 
-    public $timestamps = false;
-
     public function matchEvents()
     {
         return $this->hasMany(MatchEvent::class);

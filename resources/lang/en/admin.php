@@ -286,6 +286,7 @@ return [
                 'message' => [
                     'add_success' => 'Add match successfully',
                     'add_error' => 'Add match fail',
+                    'match_exists' => 'The Match already exists',
                 ],
             ],
             'edit' => [
@@ -307,6 +308,7 @@ return [
                 'message' => [
                     'edit_success' => 'Edit the match successfully',
                     'not_found' => 'The match not found',
+                    'can_not_change_goal_times_second' => 'Can not change goals',
                 ],
             ],
             'delete' => [

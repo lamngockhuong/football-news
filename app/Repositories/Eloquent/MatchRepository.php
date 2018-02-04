@@ -128,4 +128,31 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
                 }
             )->get();
     }
+
+    public function matchExists($team1Id, $team2Id, $leagueId)
+    {
+        $match = $this->findByField('league_id', $leagueId)
+            ->where(
+                function ($query) use ($team1Id, $team2Id) {
+                    $query->where(
+                        function ($query) use ($team1Id, $team2Id) {
+                            $query->where('team1_id', '=', $team1Id)
+                                ->where('team2_id', '=', $team2Id);
+                        }
+                    )->orWhere(
+                        function ($query) use ($team1Id, $team2Id) {
+                            $query->where('team1_id', '=', $team2Id)
+                                ->where('team2_id', '=', $team1Id);
+                        }
+                    );
+                }
+            )
+            ->get();
+
+        if (count($match)) {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -94,4 +94,9 @@ class RankRepository extends BaseRepository implements RankRepositoryInterface
             }
         )->paginate(config('repository.pagination.limit'));
     }
+
+    public function updateOrCreateRank($teamId, $leagueId, $values = [])
+    {
+        return $this->updateOrCreate(['team_id' => $teamId, 'league_id' => $leagueId], $values);
+    }
 }

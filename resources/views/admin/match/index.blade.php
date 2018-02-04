@@ -100,10 +100,11 @@
                                     <div class="col-md-4">
                                         <div class="form-group{{ $errors->has('team1_goal') ? ' has-error' : '' }}">
                                             {{ Form::label('team1_goal', trans('admin.match.index.edit.team1_goal')) }}
-                                            {{ Form::number('team1_goal', old('team1_goal'), [
-                                                'class' => 'form-control',
-                                                'min' => 0,
-                                            ]) }}
+                                            <input class="form-control" {{ $match->created_at != $match->updated_at ? 'disabled' : ''}}
+                                                min="0" name="team1_goal"
+                                                type="number"
+                                                value="{{ old('team1_goal', $match->team1_goal) }}"
+                                                id="team1_goal">
                                             @if ($errors->has('team1_goal'))
                                                 <span class="help-block">{{ $errors->first('team1_goal') }}</span>
                                             @endif
@@ -112,10 +113,11 @@
                                     <div class="col-md-4">
                                         <div class="form-group{{ $errors->has('team2_goal') ? ' has-error' : '' }}">
                                             {{ Form::label('team2_goal', trans('admin.match.index.edit.team2_goal')) }}
-                                            {{ Form::number('team2_goal', old('team2_goal'), [
-                                                'class' => 'form-control',
-                                                'min' => 0,
-                                            ]) }}
+                                            <input class="form-control" {{ $match->created_at != $match->updated_at ? 'disabled' : ''}}
+                                                min="0" name="team2_goal"
+                                                type="number"
+                                                value="{{ old('team2_goal', $match->team2_goal) }}"
+                                                id="team2_goal">
                                             @if ($errors->has('team2_goal'))
                                                 <span class="help-block">{{ $errors->first('team2_goal') }}</span>
                                             @endif
@@ -247,32 +249,6 @@
                                             </div>
                                             @if ($errors->has('end_time'))
                                                 <span class="help-block">{{ $errors->first('end_time') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group{{ $errors->has('team1_goal') ? ' has-error' : '' }}">
-                                            {{ Form::label('team1_goal', trans('admin.match.index.add.team1_goal')) }}
-                                            {{ Form::number('team1_goal', old('team1_goal', 0), [
-                                                'class' => 'form-control',
-                                                'min' => 0,
-                                            ]) }}
-                                            @if ($errors->has('team1_goal'))
-                                                <span class="help-block">{{ $errors->first('team1_goal') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group{{ $errors->has('team2_goal') ? ' has-error' : '' }}">
-                                            {{ Form::label('team2_goal', trans('admin.match.index.add.team2_goal')) }}
-                                            {{ Form::number('team2_goal', old('team2_goal', 0), [
-                                                'class' => 'form-control',
-                                                'min' => 0,
-                                            ]) }}
-                                            @if ($errors->has('team2_goal'))
-                                                <span class="help-block">{{ $errors->first('team2_goal') }}</span>
                                             @endif
                                         </div>
                                     </div>
