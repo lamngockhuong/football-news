@@ -427,4 +427,56 @@ return [
             ],
         ],
     ],
+    'team-achievement' => [
+        'index' => [
+            'title' => 'Team Achievements',
+            'add' => [
+                'title' => 'Add new achievement',
+                'name' => 'Name',
+                'name_placeholder' => 'Achievement',
+                'team' => 'Team',
+                'match' => 'Match',
+                'submit_button' => 'Add',
+                'message' => [
+                    'add_success' => 'Add achievement successfully',
+                    'add_error' => 'Add achievement fail',
+                    'match_exists' => 'The achievement already exists',
+                ],
+            ],
+            'edit' => [
+                'title' => 'Add new achievement',
+                'name' => 'Name',
+                'name_placeholder' => 'Achievement',
+                'team' => 'Team',
+                'match' => 'Match',
+                'submit_button' => 'Edit',
+                'message' => [
+                    'edit_success' => 'Edit the achievement successfully',
+                    'not_found' => 'The achievement not found',
+                ],
+            ],
+            'delete' => [
+                'message' => [
+                    'delete_success' => 'Remove achievement successfully',
+                    'not_found' => 'The achievement not found',
+                    'delete_error' => 'Remove achievement fail',
+                    'delete_error1451' => 'Information is being used, can not be deleted',
+                ],
+            ],
+            'table' => [
+                'title' => 'Achievements',
+                'search_placeholder' => 'Please enter the keyword...',
+                'id' => '#',
+                'name' => 'Name',
+                'team' => 'Team',
+                'match' => 'Match',
+                'no_results' => 'No results',
+                'edit_button_title' => 'Edit achievement',
+                'remove_button_title' => 'Remove',
+                'message' => [
+                    'delete_confirm' => 'Do you want to remove this achievement?',
+                ],
+            ],
+        ],
+    ],
 ];

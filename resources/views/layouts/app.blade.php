@@ -74,7 +74,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{ route('team-achievements.index') }}">
                 <i class="glyphicon glyphicon-certificate"></i>
                 <p>@lang('admin.sidebar_menu.team_achievement')</p>
             </a>

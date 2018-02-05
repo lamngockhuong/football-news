@@ -73,5 +73,10 @@ class AppServiceProvider extends ServiceProvider
             Contracts\PlayerAwardRepositoryInterface::class,
             Eloquent\PlayerAwardRepository::class
         );
+
+        $this->app->bind(
+            Contracts\TeamAchievementRepositoryInterface::class,
+            Eloquent\TeamAchievementRepository::class
+        );
     }
 }
