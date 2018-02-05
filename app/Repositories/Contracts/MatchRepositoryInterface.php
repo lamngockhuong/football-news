@@ -17,4 +17,6 @@ interface MatchRepositoryInterface extends RepositoryInterface
     public function checkTeamHasRank($teamId, $leagueId);
 
     public function matchExists($team1Id, $team2Id, $leagueId);
+
+    public function matchesForForm();
 }

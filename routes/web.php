@@ -16,6 +16,7 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::resource('players', 'PlayerController', ['except' => ['create', 'show']]);
     Route::resource('matches', 'MatchController', ['except' => ['create', 'show']]);
     Route::resource('ranks', 'RankController', ['except' => ['create', 'store', 'show', 'edit']]);
+    Route::resource('player-awards', 'PlayerAwardController', ['except' => ['create', 'show']]);
 }); 
 
 Route::namespace('Outside')->prefix('')->group(function () {

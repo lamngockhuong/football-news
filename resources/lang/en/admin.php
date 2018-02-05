@@ -375,4 +375,56 @@ return [
             ],
         ],
     ],
+    'player-award' => [
+        'index' => [
+            'title' => 'Player Awards',
+            'add' => [
+                'title' => 'Add new award',
+                'name' => 'Name',
+                'name_placeholder' => 'Award',
+                'player' => 'Player',
+                'match' => 'Match',
+                'submit_button' => 'Add',
+                'message' => [
+                    'add_success' => 'Add award successfully',
+                    'add_error' => 'Add award fail',
+                    'match_exists' => 'The award already exists',
+                ],
+            ],
+            'edit' => [
+                'title' => 'Add new award',
+                'name' => 'Name',
+                'name_placeholder' => 'Award',
+                'player' => 'Player',
+                'match' => 'Match',
+                'submit_button' => 'Edit',
+                'message' => [
+                    'edit_success' => 'Edit the award successfully',
+                    'not_found' => 'The award not found',
+                ],
+            ],
+            'delete' => [
+                'message' => [
+                    'delete_success' => 'Remove award successfully',
+                    'not_found' => 'The award not found',
+                    'delete_error' => 'Remove award fail',
+                    'delete_error1451' => 'Information is being used, can not be deleted',
+                ],
+            ],
+            'table' => [
+                'title' => 'Awards',
+                'search_placeholder' => 'Please enter the keyword...',
+                'id' => '#',
+                'name' => 'Name',
+                'player' => 'Player',
+                'match' => 'Match',
+                'no_results' => 'No results',
+                'edit_button_title' => 'Edit award',
+                'remove_button_title' => 'Remove',
+                'message' => [
+                    'delete_confirm' => 'Do you want to remove this award?',
+                ],
+            ],
+        ],
+    ],
 ];

@@ -68,5 +68,10 @@ class AppServiceProvider extends ServiceProvider
             Contracts\PositionRepositoryInterface::class,
             Eloquent\PositionRepository::class
         );
+
+        $this->app->bind(
+            Contracts\PlayerAwardRepositoryInterface::class,
+            Eloquent\PlayerAwardRepository::class
+        );
     }
 }

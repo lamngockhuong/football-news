@@ -155,4 +155,9 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
 
         return false;
     }
+
+    public function matchesForForm()
+    {
+        return $this->orderBy('name', 'asc')->all();
+    }
 }

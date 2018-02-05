@@ -92,7 +92,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{ route('player-awards.index') }}">
                 <i class="glyphicon glyphicon-gift"></i>
                 <p>@lang('admin.sidebar_menu.player_award')</p>
             </a>
