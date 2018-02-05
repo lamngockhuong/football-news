@@ -479,4 +479,54 @@ return [
             ],
         ],
     ],
+    'position' => [
+        'index' => [
+            'title' => 'Player Positions',
+            'add' => [
+                'title' => 'Add new position',
+                'name' => 'Name',
+                'name_placeholder' => 'Position',
+                'description' => 'description',
+                'description_placeholder' => '',
+                'submit_button' => 'Add',
+                'message' => [
+                    'add_success' => 'Add position successfully',
+                    'add_error' => 'Add position fail',
+                ],
+            ],
+            'edit' => [
+                'title' => 'Edit the position',
+                'name' => 'Name',
+                'name_placeholder' => 'position',
+                'description' => 'description',
+                'description_placeholder' => '',
+                'submit_button' => 'Edit',
+                'message' => [
+                    'edit_success' => 'Edit the position successfully',
+                    'not_found' => 'The position not found',
+                ],
+            ],
+            'delete' => [
+                'message' => [
+                    'delete_success' => 'Remove position successfully',
+                    'not_found' => 'The position not found',
+                    'delete_error' => 'Remove position fail',
+                    'delete_error1451' => 'Information is being used, can not be deleted',
+                ],
+            ],
+            'table' => [
+                'title' => 'Player Positions',
+                'search_placeholder' => 'Please enter the keyword...',
+                'id' => '#',
+                'name' => 'Name',
+                'description' => 'Description',
+                'no_results' => 'No results',
+                'edit_button_title' => 'Edit Position',
+                'remove_button_title' => 'Remove',
+                'message' => [
+                    'delete_confirm' => 'Do you want to remove this position?',
+                ],
+            ],
+        ],
+    ],
 ];

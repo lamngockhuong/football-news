@@ -80,7 +80,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{ route('positions.index') }}">
                 <i class="glyphicon glyphicon-screenshot"></i>
                 <p>@lang('admin.sidebar_menu.position')</p>
             </a>
