@@ -8,6 +8,7 @@ use Exception;
 use Input;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\Match;
 use App\Http\Requests\MatchRequest;
 use App\Exception\RepositoryException;
 use App\Http\Controllers\Controller;
@@ -42,6 +43,7 @@ class MatchController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('access', Match::class);
         // q: query parameter
         $keyword = $request->q;
 
@@ -65,6 +67,7 @@ class MatchController extends Controller
      */
     public function store(MatchRequest $request)
     {
+        $this->authorize('access', Match::class);
         try {
             $leagueId = $request->league_id;
             $team1Id = $request->team1_id;
@@ -111,6 +114,7 @@ class MatchController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('access', Match::class);
         try {
             $match = $this->matchRepository->find($id); // throw RepositoryException when can not found
             $matches = $this->matchRepository->matchesForTable(config('repository.pagination.limit'));
@@ -138,6 +142,7 @@ class MatchController extends Controller
      */
     public function update(MatchRequest $request, $id)
     {
+        $this->authorize('access', Match::class);
         try {
             $match = $this->matchRepository->find($id); // throw RepositoryException when can not found
             $leagueId = $request->league_id;
@@ -196,6 +201,7 @@ class MatchController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('access', Match::class);
         try {
             $this->matchRepository->find($id); // throw RepositoryException when can not found
             $this->matchRepository->delete($id);

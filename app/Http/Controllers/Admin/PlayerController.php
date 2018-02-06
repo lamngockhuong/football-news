@@ -8,6 +8,7 @@ use Exception;
 use Input;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\Player;
 use App\Http\Requests\PlayerRequest;
 use App\Exception\RepositoryException;
 use App\Http\Controllers\Controller;
@@ -42,6 +43,7 @@ class PlayerController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('access', Player::class);
         // q: query parameter
         $keyword = $request->q;
 
@@ -66,6 +68,7 @@ class PlayerController extends Controller
      */
     public function store(PlayerRequest $request)
     {
+        $this->authorize('access', Player::class);
         try {
             $path = $this->upload($request, config('setting.public_player_avatar'));
             $request->merge(['avatar' => $path]);
@@ -96,6 +99,7 @@ class PlayerController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('access', Player::class);
         try {
             $player = $this->playerRepository->find($id); // throw RepositoryException when can not found
             $players = $this->playerRepository->players(config('repository.pagination.limit'), [['id', 'desc']]);
@@ -124,6 +128,7 @@ class PlayerController extends Controller
      */
     public function update(PlayerRequest $request, $id)
     {
+        $this->authorize('access', Player::class);
         try {
             $player = $this->playerRepository->find($id); // throw RepositoryException when can not found
             $path = $this->upload($request, config('setting.public_player_avatar'));
@@ -160,6 +165,7 @@ class PlayerController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('access', Player::class);
         try {
             $player = $this->playerRepository->find($id); // throw RepositoryException when can not found
             Storage::delete($player->avatar);

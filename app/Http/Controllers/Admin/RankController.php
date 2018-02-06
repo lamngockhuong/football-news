@@ -8,6 +8,7 @@ use Exception;
 use Input;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\Rank;
 use App\Http\Requests\RankRequest;
 use App\Exception\RepositoryException;
 use App\Http\Controllers\Controller;
@@ -34,6 +35,7 @@ class RankController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('access', Rank::class);
         // q: query parameter
         $keyword = $request->q;
         $league = $request->league;
@@ -69,6 +71,7 @@ class RankController extends Controller
      */
     public function update(RankRequest $request, $id)
     {
+        $this->authorize('access', Rank::class);
         try {
             $rank = $this->rankRepository->find($id); // throw RepositoryException when can not found
             $this->rankRepository->update(['score' => $request->point], $rank);
@@ -96,6 +99,7 @@ class RankController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('access', Rank::class);
         try {
             $rank = $this->rankRepository->find($id); // throw RepositoryException when can not found
             if (count($this->matchRepository->checkTeamHasRank($rank->team_id, $rank->league_id))) {

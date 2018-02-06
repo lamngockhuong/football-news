@@ -7,6 +7,7 @@ use Storage;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\PlayerAward;
 use App\Http\Requests\PlayerAwardRequest;
 use App\Exception\RepositoryException;
 use App\Http\Controllers\Controller;
@@ -37,6 +38,7 @@ class PlayerAwardController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('access', PlayerAward::class);
         // q: query parameter
         $keyword = $request->q;
 
@@ -60,6 +62,7 @@ class PlayerAwardController extends Controller
      */
     public function store(PlayerAwardRequest $request)
     {
+        $this->authorize('access', PlayerAward::class);
         try {
             $this->playerAwardRepository->create($request->all());
 
@@ -87,6 +90,7 @@ class PlayerAwardController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('access', PlayerAward::class);
         try {
             $award = $this->playerAwardRepository->find($id); // throw RepositoryException when can not found
             $awards = $this->playerAwardRepository->awards(config('repository.pagination.limit'));
@@ -114,6 +118,7 @@ class PlayerAwardController extends Controller
      */
     public function update(PlayerAwardRequest $request, $id)
     {
+        $this->authorize('access', PlayerAward::class);
         try {
             $award = $this->playerAwardRepository->find($id); // throw RepositoryException when can not found
             $this->playerAwardRepository->update($request->all(), $award);
@@ -143,6 +148,7 @@ class PlayerAwardController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('access', PlayerAward::class);
         try {
             $this->playerAwardRepository->find($id); // throw RepositoryException when can not found
             $this->playerAwardRepository->delete($id);

@@ -8,6 +8,7 @@ use Exception;
 use Input;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\Bet;
 use App\Http\Requests\BetRequest;
 use App\Exception\RepositoryException;
 use App\Http\Controllers\Controller;
@@ -37,6 +38,7 @@ class BetController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('access', Bet::class);
         // q: query parameter
         $keyword = $request->q;
 
@@ -59,6 +61,7 @@ class BetController extends Controller
      */
     public function store(BetRequest $request)
     {
+        $this->authorize('access', Bet::class);
         try {
             // check if the match ends
             if (!$this->matchRepository->isUpcommingMatch($request->match_id)) {
@@ -108,6 +111,7 @@ class BetController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('access', Bet::class);
         try {
             $bet = $this->betRepository->find($id); // throw RepositoryException when can not found
             // check if the match ends, can not edit
@@ -143,6 +147,7 @@ class BetController extends Controller
      */
     public function update(BetRequest $request, $id)
     {
+        $this->authorize('access', Bet::class);
         try {
             $bet = $this->betRepository->find($id); // throw RepositoryException when can not found
             DB::beginTransaction();
@@ -187,6 +192,7 @@ class BetController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('access', Bet::class);
         try {
             $bet = $this->betRepository->find($id); // throw RepositoryException when can not found
             DB::beginTransaction();

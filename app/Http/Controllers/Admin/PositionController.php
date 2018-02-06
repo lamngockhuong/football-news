@@ -6,6 +6,7 @@ use DB;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\Position;
 use App\Http\Requests\PositionRequest;
 use App\Exception\RepositoryException;
 use App\Http\Controllers\Controller;
@@ -27,6 +28,7 @@ class PositionController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('access', Position::class);
         // q: query parameter
         $keyword = $request->q;
 
@@ -48,6 +50,7 @@ class PositionController extends Controller
      */
     public function store(PositionRequest $request)
     {
+        $this->authorize('access', Position::class);
         try {
             $this->positionRepository->create($request->all());
 
@@ -75,6 +78,7 @@ class PositionController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('access', Position::class);
         try {
             $position = $this->positionRepository->find($id); // throw RepositoryException when can not found
             $positions = $this->positionRepository->positions(config('repository.pagination.limit'), [['id', 'desc']]);
@@ -100,6 +104,7 @@ class PositionController extends Controller
      */
     public function update(PositionRequest $request, $id)
     {
+        $this->authorize('access', Position::class);
         try {
             $position = $this->positionRepository->find($id); // throw RepositoryException when can not found
             $this->positionRepository->update($request->all(), $position);
@@ -129,6 +134,7 @@ class PositionController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('access', Position::class);
         try {
             $this->positionRepository->find($id); // throw RepositoryException when can not found
             $this->positionRepository->delete($id);

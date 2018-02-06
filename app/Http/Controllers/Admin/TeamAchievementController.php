@@ -6,6 +6,7 @@ use DB;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\TeamAchievement;
 use App\Http\Requests\TeamAchievementRequest;
 use App\Exception\RepositoryException;
 use App\Http\Controllers\Controller;
@@ -36,6 +37,7 @@ class TeamAchievementController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('access', TeamAchievement::class);
         // q: query parameter
         $keyword = $request->q;
 
@@ -59,6 +61,7 @@ class TeamAchievementController extends Controller
      */
     public function store(TeamAchievementRequest $request)
     {
+        $this->authorize('access', TeamAchievement::class);
         try {
             $this->teamAchievementRepository->create($request->all());
 
@@ -86,6 +89,7 @@ class TeamAchievementController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('access', TeamAchievement::class);
         try {
             $achievement = $this->teamAchievementRepository->find($id); // throw RepositoryException when can not found
             $achievements = $this->teamAchievementRepository->achievements(config('repository.pagination.limit'));
@@ -113,6 +117,7 @@ class TeamAchievementController extends Controller
      */
     public function update(TeamAchievementRequest $request, $id)
     {
+        $this->authorize('access', TeamAchievement::class);
         try {
             $achievement = $this->teamAchievementRepository->find($id); // throw RepositoryException when can not found
             $this->teamAchievementRepository->update($request->all(), $achievement);
@@ -142,6 +147,7 @@ class TeamAchievementController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('access', TeamAchievement::class);
         try {
             $this->teamAchievementRepository->find($id); // throw RepositoryException when can not found
             $this->teamAchievementRepository->delete($id);

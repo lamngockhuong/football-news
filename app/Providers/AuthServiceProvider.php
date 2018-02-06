@@ -55,7 +55,7 @@ class AuthServiceProvider extends ServiceProvider
         Position::class => PositionPolicy::class,
         Post::class => PostPolicy::class,
         Rank::class => RankPolicy::class,
-        TeamAchievement::class => TeamAchievementPostPolicy::class,
+        TeamAchievement::class => TeamAchievementPolicy::class,
         User::class => UserPolicy::class,
         Team::class => TeamPolicy::class,
     ];

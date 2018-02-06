@@ -6,6 +6,7 @@ use DB;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\League;
 use App\Http\Requests\LeagueRequest;
 use App\Exception\RepositoryException;
 use App\Http\Controllers\Controller;
@@ -27,6 +28,7 @@ class LeagueController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('access', League::class);
         // q: query parameter
         $keyword = $request->q;
 
@@ -48,6 +50,7 @@ class LeagueController extends Controller
      */
     public function store(LeagueRequest $request)
     {
+        $this->authorize('access', League::class);
         try {
             $this->leagueRepository->create($request->all());
 
@@ -75,6 +78,7 @@ class LeagueController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('access', League::class);
         try {
             $league = $this->leagueRepository->find($id); // throw RepositoryException when can not found
             $leagues = $this->leagueRepository->leagues(config('repository.pagination.limit'), [['id', 'desc']]);
@@ -100,6 +104,7 @@ class LeagueController extends Controller
      */
     public function update(LeagueRequest $request, $id)
     {
+        $this->authorize('access', League::class);
         try {
             $league = $this->leagueRepository->find($id); // throw RepositoryException when can not found
             $this->leagueRepository->update($request->all(), $league);
@@ -129,6 +134,7 @@ class LeagueController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('access', League::class);
         try {
             $this->leagueRepository->find($id); // throw RepositoryException when can not found
             $this->leagueRepository->delete($id);
