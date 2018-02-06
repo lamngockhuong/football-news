@@ -19,7 +19,24 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::resource('player-awards', 'PlayerAwardController', ['except' => ['create', 'show']]);
     Route::resource('team-achievements', 'TeamAchievementController', ['except' => ['create', 'show']]);
     Route::resource('positions', 'PositionController', ['except' => ['create', 'show']]);
-}); 
+    Route::resource('bets', 'BetController', ['except' => ['create', 'show']]);
+});
+
+Route::middleware(['auth'])->prefix('user')->group(function () {
+    Route::get('', 'Admin\HomeController@index')->name('user.home');
+    Route::resource('bets', 'User\BetController',
+        [
+            'except' => ['create', 'show'],
+            'names' => [
+                'index' => 'user.bets.index',
+                'store' => 'user.bets.store',
+                'edit' => 'user.bets.edit',
+                'update' => 'user.bets.update',
+                'destroy' => 'user.bets.destroy',
+            ],
+        ]
+    );
+});
 
 Route::namespace('Outside')->prefix('')->group(function () {
     Route::get('', 'HomeController@index')->name('home');

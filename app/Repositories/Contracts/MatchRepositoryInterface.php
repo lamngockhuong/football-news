@@ -19,4 +19,6 @@ interface MatchRepositoryInterface extends RepositoryInterface
     public function matchExists($team1Id, $team2Id, $leagueId);
 
     public function matchesForForm();
+
+    public function isUpcommingMatch($matchId);
 }

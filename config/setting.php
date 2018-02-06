@@ -48,4 +48,7 @@ return [
     'result_pagination' => 10,
     'upcoming_match_banner' => 1,
     'time_zero' => '00',
+    'bet' => [
+        'coins' => [10, 20, 30, 40, 50, 100, 150, 250, 350, 500, 1000],
+    ],
 ];

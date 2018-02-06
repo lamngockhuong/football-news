@@ -26,6 +26,7 @@
         {{ Html::script(mix('/js/light-bootstrap-dashboard.js')) }}
         {{ Html::script('templates/admin/js/moment.js') }}
         {{ Html::script('templates/admin/js/bootstrap-datetimepicker.min.js') }}
+        {{ Html::script('templates/public/js/countdown.js') }}
     @show
     @stack('body')
 </body>

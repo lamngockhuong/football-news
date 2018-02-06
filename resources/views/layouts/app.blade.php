@@ -14,7 +14,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{ route('user.bets.index') }}">
                 <i class="glyphicon glyphicon-list-alt"></i>
                 <p>@lang('admin.sidebar_menu.bet')</p>
             </a>

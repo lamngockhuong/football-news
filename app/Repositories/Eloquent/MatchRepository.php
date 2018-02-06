@@ -78,10 +78,15 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
 
     public function nextMatches($number)
     {
-        return $this->with(['firstTeam', 'secondTeam'])
+        $repository = $this->with(['firstTeam', 'secondTeam'])
             ->orderBy('start_time', 'DESC')
-            ->findWhere([['start_time', '>', Carbon::today()->toDateString()]])
-            ->take($number)->get();
+            ->findWhere([['start_time', '>', Carbon::now()->toDateTimeString()]]);
+
+        if ($number == config('repository.pagination.all')) {
+            return $repository->all();
+        }
+
+        return $repository->take($number)->get();
     }
 
     public function nextLeagueMatches($leagueId, $number)
@@ -89,7 +94,7 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
         return $this->findByField('league_id', $leagueId)
             ->with(['firstTeam', 'secondTeam'])
             ->orderBy('start_time', 'DESC')
-            ->findWhere([['start_time', '>', Carbon::today()->toDateString()]])
+            ->findWhere([['start_time', '>', Carbon::now()->toDateTimeString()]])
             ->take($number)->get();
     }
 
@@ -97,7 +102,7 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
     {
         return $this->with(['firstTeam', 'secondTeam'])
             ->orderBy('start_time', 'DESC')
-            ->findWhere([['start_time', '>', Carbon::today()->toDateString()]])
+            ->findWhere([['start_time', '>', Carbon::now()->toDateTimeString()]])
             ->paginate($number);
     }
 
@@ -106,7 +111,7 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
         return $this->findByField('league_id', $leagueId)
             ->with(['firstTeam', 'secondTeam'])
             ->orderBy('start_time', 'DESC')
-            ->findWhere([['start_time', '>', Carbon::today()->toDateString()]])
+            ->findWhere([['start_time', '>', Carbon::now()->toDateTimeString()]])
             ->paginate($number);
     }
 
@@ -114,7 +119,7 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
     {
         return $this->with(['firstTeam', 'secondTeam'])
             ->orderBy('end_time', 'DESC')
-            ->findWhere([['end_time', '<=', Carbon::today()->toDateString()]])
+            ->findWhere([['end_time', '<=', Carbon::now()->toDateTimeString()]])
             ->paginate($number);
     }
 
@@ -159,5 +164,18 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
     public function matchesForForm()
     {
         return $this->orderBy('name', 'asc')->all();
+    }
+
+    public function isUpcommingMatch($matchId)
+    {
+        $matches = $this->where('id', '=', $matchId)
+            ->findWhere([['start_time', '>', Carbon::now()->toDateTimeString()]])
+            ->all();
+
+        if (count($matches)) {
+            return true;
+        }
+
+        return false;
     }
 }

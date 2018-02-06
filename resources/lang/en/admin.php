@@ -529,4 +529,63 @@ return [
             ],
         ],
     ],
+    'bet' => [
+        'index' => [
+            'title' => 'Bets',
+            'add' => [
+                'title' => 'Place a bet',
+                'match' => 'Match',
+                'time_left' => 'Time left',
+                'choose_the_match' => 'Please choose the match',
+                'goal' => ':team Goal',
+                'coin' => 'Coin',
+                'submit_button' => 'Bet',
+                'message' => [
+                    'add_success' => 'Place the bet successfully',
+                    'add_error' => 'Place the bet fail',
+                    'lack_of_coin' => 'Lack of coin. Please deposit coin to your account',
+                    'no_matches_upcomming' => 'No matches upcomming!',
+                ],
+            ],
+            'edit' => [
+                'title' => 'Edit the bets',
+                'match' => 'Match',
+                'time_left' => 'Time left',
+                'goal' => ':team Goal',
+                'coin' => 'Coin',
+                'submit_button' => 'Edit',
+                'message' => [
+                    'edit_success' => 'Edit the bets successfully',
+                    'not_found' => 'The bets not found',
+                    'lack_of_coin' => 'Lack of coin. Please deposit coin to your account',
+                    'match_ends_can_not_edit' => 'The match ends. Can not edit the bets',
+                ],
+            ],
+            'delete' => [
+                'message' => [
+                    'delete_success' => 'Remove the bets successfully',
+                    'not_found' => 'The bets not found',
+                    'delete_error' => 'Remove bets fail',
+                    'delete_error1451' => 'Information is being used, can not be deleted',
+                ],
+            ],
+            'table' => [
+                'title' => 'Bets',
+                'search_placeholder' => 'Please enter the keyword...',
+                'id' => '#',
+                'user' => 'User',
+                'match' => 'Match',
+                'coin' => 'coin',
+                'team1' => 'Team 1',
+                'team2' => 'Team 2',
+                'betting_date' => 'Betting date',
+                'no_results' => 'No results',
+                'edit_button_title' => 'Edit bets',
+                'remove_button_title' => 'Remove',
+                'message' => [
+                    'delete_confirm' => 'Do you want to remove this bets?',
+                ],
+            ],
+        ],
+    ],
 ];
