@@ -88,5 +88,10 @@ class AppServiceProvider extends ServiceProvider
             Contracts\CategoryRepositoryInterface::class,
             Eloquent\CategoryRepository::class
         );
+        
+        $this->app->bind(
+            Contracts\MatchEventRepositoryInterface::class,
+            Eloquent\MatchEventRepository::class
+        );
     }
 }

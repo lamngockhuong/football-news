@@ -34,4 +34,19 @@ class MatchEvent extends Model
     {
         return $this->belongsTo(Match::class);
     }
+
+    public function getPublishDateAttribute()
+    {
+        return $this->created_at->format('H:i d/m/Y');
+    }
+
+    public function getLastUpdateDateAttribute()
+    {
+        return $this->updated_at->format('H:i d/m/Y');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return asset(config('filesystems.disks.public.url') . '/' . $this->attributes['image']);
+    }
 }

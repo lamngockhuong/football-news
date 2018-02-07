@@ -63,7 +63,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('match-events.index') }}">
                     <i class="glyphicon glyphicon-bullhorn"></i>
                     <p>@lang('admin.sidebar_menu.match_event')</p>
                 </a>
