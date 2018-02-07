@@ -4,6 +4,7 @@ return [
     'public_images_asset' => 'templates/public/images/',
     'public_team_logo' => 'team/logo',
     'public_player_avatar' => 'player/avatar',
+    'public_user_avatar' => 'user/avatar',
     'public_post_image' => 'news/image',
     'public_match_event_image' => 'event/image',
     'users' => [
@@ -11,6 +12,9 @@ return [
         'is_actived_default' => 0,
         'is_admin_default' => 0,
         'actived' => 1,
+        'non_actived' => 0,
+        'is_member' => 0,
+        'is_admin' => 1,
     ],
     'categories' => [
         'parent_default' => 0,

@@ -14,6 +14,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::resource('leagues', 'LeagueController', ['except' => ['create', 'show']]);
     Route::resource('teams', 'TeamController', ['except' => ['create', 'show']]);
     Route::resource('players', 'PlayerController', ['except' => ['create', 'show']]);
+    Route::resource('users', 'UserController', ['except' => ['create', 'show']]);
     Route::resource('matches', 'MatchController', ['except' => ['create', 'show']]);
     Route::resource('ranks', 'RankController', ['except' => ['create', 'store', 'show', 'edit']]);
     Route::resource('player-awards', 'PlayerAwardController', ['except' => ['create', 'show']]);
