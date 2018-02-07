@@ -615,7 +615,6 @@ return [
         ],
         'trashed' => [
             'title' => 'Post',
-            'add_button' => 'Add Post',
             'trash' => 'Trash',
             'list' => 'Posts',
             'table' => [
@@ -692,6 +691,8 @@ return [
     'event' => [
         'index' => [
             'title' => 'Match Events',
+            'trash' => 'Trash',
+            'list' => 'Match Events',
             'add_button' => 'Add Event',
             'table' => [
                 'title' => 'Events',
@@ -706,6 +707,31 @@ return [
                 'created_at' => 'Publish Date',
                 'no_results' => 'No results',
                 'edit_button_title' => 'Edit Match Events',
+                'trash_button_title' => 'Move to trash',
+                'remove_button_title' => 'Remove',
+                'message' => [
+                    'delete_confirm' => 'Do you want to remove this event?',
+                ],
+            ],
+        ],
+        'trashed' => [
+            'title' => 'Match Events',
+            'trash' => 'Trash',
+            'list' => 'Match Events',
+            'table' => [
+                'title' => 'Trash',
+                'search_placeholder' => 'Please enter the keyword...',
+                'id' => '#',
+                'name' => 'Title',
+                'image' => 'Image',
+                'match' => 'Match',
+                'user' => 'User',
+                'view_count' => 'Views',
+                'status' => 'Status',
+                'created_at' => 'Publish Date',
+                'deleted_at' => 'Date in the Trash',
+                'no_results' => 'No results',
+                'undo_button_title' => 'Undo Event',
                 'remove_button_title' => 'Remove',
                 'message' => [
                     'delete_confirm' => 'Do you want to remove this event?',
@@ -746,6 +772,20 @@ return [
                 'delete_success' => 'Remove event successfully',
                 'not_found' => 'The event not found',
                 'delete_error' => 'Remove event fail',
+            ],
+        ],
+        'trash' => [
+            'message' => [
+                'trash_success' => 'The event moved to trash successfully',
+                'not_found' => 'The event not found',
+                'trash_error' => 'The event moved to trash fail',
+            ],
+        ],
+        'untrash' => [
+            'message' => [
+                'untrash_success' => 'Restore the event successfully',
+                'not_found' => 'The event not found',
+                'untrash_error' => 'Restore the event fail',
             ],
         ],
     ],

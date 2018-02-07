@@ -25,6 +25,10 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::delete('posts/trash/{id}', 'PostController@trash')->name('posts.trash');
     Route::delete('posts/untrash/{id}', 'PostController@untrash')->name('posts.untrash');
     Route::put('posts/active/{id}', 'PostController@active')->name('posts.active')->where(['id' => '[0-9]+']);
+    Route::resource('match-events', 'MatchEventController', ['except' => ['show']]);
+    Route::get('match-events/trashed', 'MatchEventController@trashed')->name('match-events.trashed');
+    Route::delete('match-events/trash/{id}', 'MatchEventController@trash')->name('match-events.trash');
+    Route::delete('match-events/untrash/{id}', 'MatchEventController@untrash')->name('match-events.untrash');
     Route::put('match-events/active/{id}', 'MatchEventController@active')->name('match-events.active')->where(['id' => '[0-9]+']);
 });
 

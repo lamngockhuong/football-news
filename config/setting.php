@@ -5,6 +5,7 @@ return [
     'public_team_logo' => 'team/logo',
     'public_player_avatar' => 'player/avatar',
     'public_post_image' => 'news/image',
+    'public_match_event_image' => 'event/image',
     'users' => [
         'coin_default' => 0,
         'is_actived_default' => 0,

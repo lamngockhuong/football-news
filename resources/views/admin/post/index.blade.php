@@ -59,7 +59,7 @@
                                                 {{ $post->user->name }}
                                             </a>
                                         </td>
-                                        <td>{{ $post->created_at }}</td>
+                                        <td>{{ $post->publish_date }}</td>
                                         <td>{{ $post->view_count }}</td>
                                         <td>
                                             <label class="switch-button">

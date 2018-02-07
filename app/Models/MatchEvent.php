@@ -45,6 +45,11 @@ class MatchEvent extends Model
         return $this->updated_at->format('H:i d/m/Y');
     }
 
+    public function getDeleteDateAttribute()
+    {
+        return $this->deleted_at->format('H:i d/m/Y');
+    }
+
     public function getImageUrlAttribute()
     {
         return asset(config('filesystems.disks.public.url') . '/' . $this->attributes['image']);

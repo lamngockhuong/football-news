@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', trans('admin.event.index.title'))
-@section('content-title', trans('admin.event.index.title'))
+@section('title', trans('admin.event.trashed.title'))
+@section('content-title', trans('admin.event.trashed.title'))
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -8,22 +8,19 @@
                 <div class="card">
                     <div class="header pull-left">
                         <h4 class="title">
-                            <a href="{{ route('match-events.index') }}">
-                                @lang('admin.event.index.table.title')
+                            <a href="{{ route('match-events.trashed') }}">
+                                @lang('admin.event.trashed.table.title')
                             </a>
                         </h4>
                     </div>
                     <div class="header pull-right">
                         <div class="form-inline">
-                            <a href="{{ route('match-events.create') }}" class="btn btn-info btn-wd">
-                                <i class="fa fa-plus"></i> @lang('admin.event.index.add_button')
-                            </a>
-                            <a href="{{ route('match-events.trashed') }}" class="btn btn-wd">
-                                <i class="fa fa-trash"></i> @lang('admin.event.index.trash')
+                            <a href="{{ route('match-events.index') }}" class="btn btn-info btn-wd">
+                                <i class="fa fa-list"></i> @lang('admin.event.trashed.list')
                             </a>
                             <div class="title ranking-search">
-                                {{ Form::open(['route' => 'match-events.index', 'method' => 'GET']) }}
-                                    {{ Form::text('q', null, ['class' => 'form-control', 'placeholder' => trans('admin.event.index.table.search_placeholder')]) }}
+                                {{ Form::open(['route' => 'match-events.trashed', 'method' => 'GET']) }}
+                                    {{ Form::text('q', null, ['class' => 'form-control', 'placeholder' => trans('admin.event.trashed.table.search_placeholder')]) }}
                                 {{ Form::close() }}
                             </div>
                         </div>
@@ -31,14 +28,14 @@
                     <div class="content table-responsive table-full-width">
                         <table class="table table-hover table-striped">
                             <thead>
-                                <th>@lang('admin.event.index.table.id')</th>
-                                <th>@lang('admin.event.index.table.name')</th>
-                                <th>@lang('admin.event.index.table.image')</th>
-                                <th>@lang('admin.event.index.table.match')</th>
-                                <th>@lang('admin.event.index.table.user')</th>
-                                <th>@lang('admin.event.index.table.created_at')</th>
-                                <th>@lang('admin.event.index.table.view_count')</th>
-                                <th>@lang('admin.event.index.table.status')</th>
+                                <th>@lang('admin.event.trashed.table.id')</th>
+                                <th>@lang('admin.event.trashed.table.name')</th>
+                                <th>@lang('admin.event.trashed.table.image')</th>
+                                <th>@lang('admin.event.trashed.table.match')</th>
+                                <th>@lang('admin.event.trashed.table.user')</th>
+                                <th>@lang('admin.event.trashed.table.created_at')</th>
+                                <th>@lang('admin.event.trashed.table.deleted_at')</th>
+                                <th>@lang('admin.event.trashed.table.view_count')</th>
                                 <th></th>
                             </thead>
                             <tbody>
@@ -50,37 +47,27 @@
                                             <img src="{{ $event->image_url }}" width="100" onerror='this.src="{{ asset('images/no-image.png') }}"'/>
                                         </td>
                                         <td>
-                                            <a href="{{ route('match-events.index', ['match' => $event->match_id]) }}">
+                                            <a href="{{ route('match-events.trashed', ['match' => $event->match_id]) }}">
                                                 {{ $event->match->name }}
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{ route('match-events.index', ['user' => $event->user_id]) }}">
+                                            <a href="{{ route('match-events.trashed', ['user' => $event->user_id]) }}">
                                                 {{ $event->user->name }}
                                             </a>
                                         </td>
                                         <td>{{ $event->publish_date }}</td>
+                                        <td>{{ $event->delete_date }}</td>
                                         <td>{{ $event->view_count }}</td>
-                                        <td>
-                                            <label class="switch-button">
-                                                <input type="checkbox"{{ $event->is_actived ? ' checked' : '' }} data-url="{{ route('match-events.active', ['id' => $event->id]) }}">
-                                                <span class="slider round"></span>
-                                            </label>
-                                        </td>
                                         <td class="td-actions text-right">
-                                            <a href="{{ route('match-events.edit', ['id' => $event->id, 'page' => request()->page ? request()->page : '1']) }}"
-                                                rel="tooltip" class="btn btn-info btn-link btn-xs"
-                                                data-original-title="@lang('admin.event.index.table.edit_button_title')">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            {!! Form::open(['route' => ['match-events.trash', 'id' => $event->id]]) !!}
+                                            {!! Form::open(['route' => ['match-events.untrash', 'id' => $event->id]]) !!}
                                                 {{ method_field('DELETE') }}
-                                                {!! Form::button('<i class="fa fa-trash"></i> ',
+                                                {!! Form::button('<i class="fa fa-undo"></i> ',
                                                     [
-                                                        'class' => 'btn btn-link btn-xs',
+                                                        'class' => 'btn btn-warning btn-link btn-xs',
                                                         'type' => 'submit',
                                                         'rel' => 'tooltip',
-                                                        'data-original-title' => trans('admin.event.index.table.trash_button_title'),
+                                                        'data-original-title' => trans('admin.event.trashed.table.undo_button_title'),
                                                     ])
                                                 !!}
                                             {!! Form::close() !!}
@@ -91,8 +78,8 @@
                                                         'class' => 'btn btn-danger btn-link btn-xs delete-button',
                                                         'type' => 'submit',
                                                         'rel' => 'tooltip',
-                                                        'data-original-title' => trans('admin.event.index.table.remove_button_title'),
-                                                        'data-delete-confirm' => trans('admin.event.index.table.message.delete_confirm'),
+                                                        'data-original-title' => trans('admin.event.trashed.table.remove_button_title'),
+                                                        'data-delete-confirm' => trans('admin.event.trashed.table.message.delete_confirm'),
                                                     ])
                                                 !!}
                                             {!! Form::close() !!}
@@ -100,7 +87,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="9" id="no-results">@lang('admin.event.index.table.no_results')</td>
+                                        <td colspan="9" id="no-results">@lang('admin.event.trashed.table.no_results')</td>
                                     </tr>
                                 @endforelse
                             </tbody>
