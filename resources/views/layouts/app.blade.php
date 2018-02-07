@@ -33,7 +33,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('posts.index') }}">
                     <i class="glyphicon glyphicon-file"></i>
                     <p>@lang('admin.sidebar_menu.post')</p>
                 </a>

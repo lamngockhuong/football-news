@@ -20,6 +20,11 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
     Route::resource('team-achievements', 'TeamAchievementController', ['except' => ['create', 'show']]);
     Route::resource('positions', 'PositionController', ['except' => ['create', 'show']]);
     Route::resource('bets', 'BetController', ['except' => ['create', 'show']]);
+    Route::resource('posts', 'PostController', ['except' => ['show']]);
+    Route::get('posts/trashed', 'PostController@trashed')->name('posts.trashed');
+    Route::delete('posts/trash/{id}', 'PostController@trash')->name('posts.trash');
+    Route::delete('posts/untrash/{id}', 'PostController@untrash')->name('posts.untrash');
+    Route::put('posts/active/{id}', 'PostController@active')->name('posts.active')->where(['id' => '[0-9]+']);
 });
 
 Route::middleware(['auth'])->prefix('user')->group(function () {

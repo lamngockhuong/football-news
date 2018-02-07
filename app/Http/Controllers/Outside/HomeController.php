@@ -22,7 +22,7 @@ class HomeController extends Controller
     public function index()
     {
         $nextMatches = $this->matchRepository->nextMatches(config('setting.next_match'))->reverse();
-        $posts = $this->postRepository->paginate();
+        $posts = $this->postRepository->latestPosts();
 
         return view('public.home', compact('posts', 'nextMatches'));
     }

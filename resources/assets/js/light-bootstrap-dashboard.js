@@ -264,6 +264,67 @@ $(document).ready(function () {
             $('.place-bet-match .col-md-12').removeClass('col-md-6');
         }
     }
+
+    $('.switch-button input').on('change', function () {
+        var isChecked = $(this).is(':checked');
+        var active;
+        if (isChecked) {
+            isActived = 1;
+        } else {
+            isActived = 0;
+        }
+        $.ajax({
+            url: $(this).data('url'),
+            method: 'POST',
+            value: {
+                this: $(this),
+            },
+            data: {
+                _method: 'PUT',
+                is_actived: isActived,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            error: function (result) {
+                this.value.this.prop("checked", !isChecked);
+            },
+        });
+    });
+
+    /* CKEditor */
+    if ($('#content').length != 0) {
+        CKEDITOR.replace('content', {
+            height: 500,
+            filebrowserBrowseUrl: '/js/ckfinder/ckfinder.html',
+            filebrowserImageBrowseUrl: '/js/ckfinder/ckfinder.html?type=Images',
+            filebrowserFlashBrowseUrl: '/js/ckfinder/ckfinder.html?type=Flash',
+            filebrowserUploadUrl: '/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserImageUploadUrl: '/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+            filebrowserFlashUploadUrl: '/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+        });
+    }
+
+    /* Image preview */
+    $(".upload-image input#image").on('change', function () {
+        var files = !!this.files ? this.files : [];
+        if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+        if (/^image/.test(files[0].type)) { // only image file
+            var reader = new FileReader(); // instance of the FileReader
+            reader.readAsDataURL(files[0]); // read the local file
+
+            reader.onloadend = function () { // set image data as background of div
+                $('#image-preview').css('background-image', 'url(' + this.result + ')');
+                $('#image-preview').css('display', 'inline-block');
+            }
+        }
+    });
+
+    /* Edit page with image preview */
+    if ($('#image-preview').data('src')) {
+        $('#image-preview').css('background-image', 'url(' + $('#image-preview').data('src') + ')');
+        $('#image-preview').css('display', 'inline-block');
+    }
+
 });
 
 // activate collapse right menu when the windows is resized

@@ -48,5 +48,9 @@ interface RepositoryInterface
 
     public function groupBy($colunms);
 
+    public function onlyTrashed();
+
+    public function withTrashed();
+
     public function take($limit);
 }

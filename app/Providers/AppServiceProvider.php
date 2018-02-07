@@ -83,5 +83,10 @@ class AppServiceProvider extends ServiceProvider
             Contracts\BetRepositoryInterface::class,
             Eloquent\BetRepository::class
         );
+
+        $this->app->bind(
+            Contracts\CategoryRepositoryInterface::class,
+            Eloquent\CategoryRepository::class
+        );
     }
 }

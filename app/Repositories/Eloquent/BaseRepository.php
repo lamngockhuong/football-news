@@ -197,6 +197,20 @@ abstract class BaseRepository implements RepositoryInterface
         return $this;
     }
 
+    public function onlyTrashed()
+    {
+        $this->model = $this->model->onlyTrashed();
+
+        return $this;
+    }
+
+    public function withTrashed()
+    {
+        $this->model = $this->model->withTrashed();
+
+        return $this;
+    }
+
     public function take($limit)
     {
         $this->model = $this->model->take($limit);

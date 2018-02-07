@@ -45,6 +45,16 @@ class Post extends Model
         return $this->created_at->format('H:i d/m/Y');
     }
 
+    public function getLastUpdateDateAttribute()
+    {
+        return $this->updated_at->format('H:i d/m/Y');
+    }
+
+    public function getDeleteDateAttribute()
+    {
+        return $this->deleted_at->format('H:i d/m/Y');
+    }
+
     public function getSlugAttribute()
     {
         return str_slug($this->title);
@@ -61,5 +71,10 @@ class Post extends Model
     public function getShareUrlAttribute()
     {
         return urlencode($this->url);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return asset(config('filesystems.disks.public.url') . '/' . $this->attributes['image']);
     }
 }

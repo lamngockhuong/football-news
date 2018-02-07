@@ -4,6 +4,7 @@ return [
     'public_images_asset' => 'templates/public/images/',
     'public_team_logo' => 'team/logo',
     'public_player_avatar' => 'player/avatar',
+    'public_post_image' => 'news/image',
     'users' => [
         'coin_default' => 0,
         'is_actived_default' => 0,
@@ -18,6 +19,7 @@ return [
         'is_actived_default' => 0,
         'category_id_default' => 0,
         'user_id_default' => 0,
+        'active' => 1,
     ],
     'comments' => [
         'status_default' => 0,

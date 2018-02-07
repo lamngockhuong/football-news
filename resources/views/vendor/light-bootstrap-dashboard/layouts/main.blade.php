@@ -27,6 +27,7 @@
         {{ Html::script('templates/admin/js/moment.js') }}
         {{ Html::script('templates/admin/js/bootstrap-datetimepicker.min.js') }}
         {{ Html::script('templates/public/js/countdown.js') }}
+        {{ Html::script('js/ckeditor/ckeditor.js') }}
     @show
     @stack('body')
 </body>
