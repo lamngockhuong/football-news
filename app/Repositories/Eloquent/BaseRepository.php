@@ -43,6 +43,11 @@ abstract class BaseRepository implements RepositoryInterface
         return $model;
     }
 
+    public function count()
+    {
+        return $this->model->count();
+    }
+
     public function find($id, $columns = ['*'])
     {
         try {

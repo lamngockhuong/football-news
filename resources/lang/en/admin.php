@@ -39,6 +39,13 @@ return [
     '404' => '404 Not Found',
     '403' => '403 Forbidden',
     'oops' => 'Oops',
+    'dashboard' => [
+        'users' => 'Users!',
+        'teams' => 'Teams!',
+        'matches' => 'Matches!',
+        'bets' => 'Bets!',
+        'view_details' => 'View Details',
+    ],
     'auth' => [
         'register' => 'Register',
         'login' => 'Login',

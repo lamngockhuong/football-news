@@ -8,6 +8,8 @@ interface RepositoryInterface
 
     public function all($columns = ['*']);
 
+    public function count();
+
     public function find($id, $columns = ['*']);
 
     public function findByField($field, $value);

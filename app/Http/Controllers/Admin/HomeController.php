@@ -4,16 +4,27 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Repositories\Contracts\TeamRepositoryInterface;
+use App\Repositories\Contracts\MatchRepositoryInterface;
+use App\Repositories\Contracts\BetRepositoryInterface;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
+
+    protected $userRepository;
+    protected $teamRepository;
+
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        TeamRepositoryInterface $teamRepository,
+        MatchRepositoryInterface $matchRepository,
+        BetRepositoryInterface $betRepository
+    ) {
+        $this->userRepository = $userRepository;
+        $this->teamRepository = $teamRepository;
+        $this->matchRepository = $matchRepository;
+        $this->betRepository = $betRepository;
     }
 
     /**
@@ -23,6 +34,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $userNumber = $this->userRepository->count();
+        $teamNumber = $this->teamRepository->count();
+        $matchNumber = $this->matchRepository->count();
+        $betNumber = $this->betRepository->count();
+        return view('home', compact('userNumber', 'teamNumber', 'matchNumber', 'betNumber'));
     }
 }
