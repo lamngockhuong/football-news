@@ -471,4 +471,136 @@ jQuery(document).ready(function($) {
         $('#share-btn1').attr('style', 'display: block');
     });
 
+    // -- Comment in post -- //
+    $('.blog-comment button').on('click', function () {
+        var form = $(this).closest('form')
+        var messageDiv = form.find('div div.message');
+        var content = form.find('textarea').val();
+        form.find('textarea').val('');
+        $.ajax({
+            url: form.data('url'),
+            method: 'POST',
+            value: {
+                message: messageDiv,
+            },
+            data: {
+                _method: 'PUT',
+                content: content,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                var result = data.html;
+                $('.comment-holder .no-comments').empty();
+                $('.comment-holder ul').append(result);
+            },
+            error: function (data) {
+                if (data.status === 401) {
+                    $(location).prop('pathname', '/login');
+                } else if (data.status === 422) {
+                    var error = data.responseJSON;
+                    var errors = error.errors;
+                    errorsHtml = '<div class="alert alert-danger"><ul>';
+                    $.each(errors, function (key, value) {
+                        errorsHtml += '<li>' + value + '</li>';
+                    });
+                    errorsHtml += '</ul></div>';
+                    this.value.message.html(errorsHtml);
+                }
+            },
+        });
+    });
+
+    $('.comment-holder ul').on('click', '.comment-action .delete-comment', function () {
+        var url = $(this).data('url');
+        var li = $(this).closest('li');
+        $.ajax({
+            url: url,
+            method: 'POST',
+            value: {
+                parent: li,
+            },
+            data: {
+                _method: 'DELETE',
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                this.value.parent.remove();
+            },
+            error: function (data) {
+                alert('Error when delete this comment!');
+            },
+        });
+    });
+
+    $('.comment-holder ul').on('click', '.comment-action .edit-comment', function () {
+        var url = $(this).data('url');
+        var li = $(this).closest('li');
+        $.ajax({
+            url: url,
+            method: 'GET',
+            value: {
+                parent: li,
+            },
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                this.value.parent.next('.sub-comment.edit-comment').remove();
+                this.value.parent.after(data.html);
+            },
+            error: function (data) {
+                alert('Error when edit this comment!');
+            },
+        });
+    });
+
+    // comment: save button
+    $('.comment-holder ul').on('click', '.sub-comment.edit-comment .save-comment', function () {
+        var form = $(this).closest('form')
+        var li = $(this).closest('ul');
+        var li = li.closest('li');
+        var messageDiv = form.find('div div.message');
+        var content = form.find('textarea').val();
+        form.find('textarea').val('');
+        $.ajax({
+            url: form.data('url'),
+            method: 'POST',
+            value: {
+                li: li,
+                message: messageDiv,
+            },
+            data: {
+                _method: 'PUT',
+                content: content,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                var result = data.html;
+                this.value.li.prev().html(data.html);
+                this.value.li.remove();
+            },
+            error: function (data) {
+                if (data.status === 401) {
+                    $(location).prop('pathname', '/login');
+                } else if (data.status === 422) {
+                    var error = data.responseJSON;
+                    var errors = error.errors;
+                    errorsHtml = '<div class="alert alert-danger"><ul>';
+                    $.each(errors, function (key, value) {
+                        errorsHtml += '<li>' + value + '</li>';
+                    });
+                    errorsHtml += '</ul></div>';
+                    this.value.message.html(errorsHtml);
+                }
+            },
+        });
+    });
+
+    // comment: cancel button
+    $('.comment-holder ul').on('click', '.sub-comment.edit-comment .cancel-edit-comment', function () {
+        var ul = $(this).closest('ul');
+        var li = ul.closest('li');
+        li.remove();
+    });
+
 });

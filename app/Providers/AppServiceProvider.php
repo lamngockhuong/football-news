@@ -93,5 +93,10 @@ class AppServiceProvider extends ServiceProvider
             Contracts\MatchEventRepositoryInterface::class,
             Eloquent\MatchEventRepository::class
         );
+
+        $this->app->bind(
+            Contracts\CommentRepositoryInterface::class,
+            Eloquent\CommentRepository::class
+        );
     }
 }

@@ -71,4 +71,8 @@ Route::namespace('Outside')->prefix('')->group(function () {
     Route::get('ranking/{slug}-{id}', 'RankController@show')->name('rank.show')->where(['slug' => '.+', 'id' => '[0-9]+']);
     Route::get('search', 'SearchController@search')->name('search');
     Route::get('{slug}-{id}', 'PostController@show')->name('post.show')->where(['slug' => '.+', 'id' => '[0-9]+']);
+    Route::put('comment/{post}', 'PostController@comment')->name('post.comment')->where(['id' => '[0-9]+'])->middleware(['auth']);
+    Route::delete('comment/{comment}', 'PostController@deleteComment')->name('post.delete-comment')->where(['id' => '[0-9]+'])->middleware(['auth']);
+    Route::get('comment/{comment}/edit', 'PostController@editComment')->name('post.edit-comment')->where(['id' => '[0-9]+'])->middleware(['auth']);
+    Route::put('comment/{comment}/edit', 'PostController@updateComment')->name('post.update-comment')->where(['id' => '[0-9]+'])->middleware(['auth']);
 });

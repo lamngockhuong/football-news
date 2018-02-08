@@ -30,4 +30,9 @@ class Comment extends Model
     {
         return $this->belongsTo(Post::class);
     }
+
+    public function getCommentDateAttribute()
+    {
+        return $this->created_at->format('H:i d/m/Y');
+    }
 }
