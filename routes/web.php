@@ -22,6 +22,7 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('cpanel')->group(functio
     Route::resource('positions', 'PositionController', ['except' => ['create', 'show']]);
     Route::resource('bets', 'BetController', ['except' => ['create', 'show']]);
     Route::resource('posts', 'PostController', ['except' => ['show']]);
+    Route::resource('categories', 'CategoryController', ['except' => ['create', 'show']]);
     Route::get('posts/trashed', 'PostController@trashed')->name('posts.trashed');
     Route::delete('posts/trash/{id}', 'PostController@trash')->name('posts.trash');
     Route::delete('posts/untrash/{id}', 'PostController@untrash')->name('posts.untrash');

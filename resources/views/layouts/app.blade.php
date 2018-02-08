@@ -27,7 +27,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('categories.index') }}">
                     <i class="glyphicon glyphicon-th-list"></i>
                     <p>@lang('admin.sidebar_menu.category')</p>
                 </a>
