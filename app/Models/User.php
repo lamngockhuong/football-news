@@ -66,4 +66,14 @@ class User extends Authenticatable
     {
         return asset(config('filesystems.disks.public.url') . '/' . $this->attributes['avatar']);
     }
+
+    public function getRegisterDateAttribute()
+    {
+        return $this->created_at->format('H:i d/m/Y');
+    }
+
+    public function getLastUpdateDateAttribute()
+    {
+        return $this->created_at->format('H:i d/m/Y');
+    }
 }

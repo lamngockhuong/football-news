@@ -100,7 +100,7 @@
             </li>
         @else
             <li>
-                <a href="{{ route('user.home') }}">
+                <a href="{{ route('admin.home') }}">
                     <i class="glyphicon glyphicon-home"></i>
                     <p>@lang('admin.sidebar_menu.dashboard')</p>
                 </a>

@@ -8,7 +8,7 @@ Route::namespace('Auth')->group(function () {
     Route::get('resend/{basecode}', 'RegisterController@resendConfirmLink')->name('auth.resend_confirm_link');
 });
     
-Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function () {
+Route::middleware(['auth'])->namespace('Admin')->prefix('cpanel')->group(function () {
     Route::get('', 'HomeController@index')->name('admin.home');
     Route::resource('countries', 'CountryController', ['except' => ['create', 'show']]);
     Route::resource('leagues', 'LeagueController', ['except' => ['create', 'show']]);
@@ -34,7 +34,6 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('admin')->group(function
 });
 
 Route::middleware(['auth'])->prefix('user')->group(function () {
-    Route::get('', 'Admin\HomeController@index')->name('user.home');
     Route::resource('bets', 'User\BetController',
         [
             'except' => ['create', 'show'],
@@ -47,6 +46,18 @@ Route::middleware(['auth'])->prefix('user')->group(function () {
             ],
         ]
     );
+    Route::resource('profile', 'User\ProfileController',
+        [
+            'only' => ['show', 'edit', 'update'],
+            'names' => [
+                'show' => 'user.profiles.show',
+                'edit' => 'user.profiles.edit',
+                'update' => 'user.profiles.update',
+            ],
+        ]
+    );
+    Route::get('profiles/change-password', 'User\ProfileController@showChangePassword')->name('user.profiles.show-change-password');
+    Route::put('profiles/change-password', 'User\ProfileController@changePassword')->name('user.profiles.change-password');
 });
 
 Route::namespace('Outside')->prefix('')->group(function () {

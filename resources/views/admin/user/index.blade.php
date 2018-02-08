@@ -272,7 +272,11 @@
                                 @forelse ($users as $user)
                                     <tr>
                                         <td>{{ $user->id }}</td>
-                                        <td>{{ $user->name }}</td>
+                                        <td>
+                                            <a href="{{ route('user.profiles.show', ['id' => $user->id]) }}">
+                                                {{ $user->name }}
+                                            </a>
+                                        </td>
                                         <td>
                                             {{ $user->provider ? trans('admin.user.index.table.social_user') : $user->email }}
                                             {{ $user->provider && $user->email ? "($user->email)" : '' }}
