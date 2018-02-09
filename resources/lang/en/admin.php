@@ -919,4 +919,83 @@ return [
             ],
         ],
     ],
+    'category' => [
+        'index' => [
+            'title' => 'Categories',
+            'add' => [
+                'title' => 'Add new category',
+                'name' => 'Name',
+                'name_placeholder' => 'Category',
+                'year' => 'Year',
+                'year_placeholder' => '1996',
+                'description' => 'description',
+                'description_placeholder' => '',
+                'submit_button' => 'Add',
+                'message' => [
+                    'add_success' => 'Add category successfully',
+                    'add_error' => 'Add category fail',
+                ],
+            ],
+            'edit' => [
+                'title' => 'Edit the category',
+                'name' => 'Name',
+                'name_placeholder' => 'Category',
+                'description' => 'description',
+                'description_placeholder' => '',
+                'submit_button' => 'Edit',
+                'message' => [
+                    'edit_success' => 'Edit the category successfully',
+                    'not_found' => 'The category not found',
+                ],
+            ],
+            'delete' => [
+                'message' => [
+                    'delete_success' => 'Remove category successfully',
+                    'not_found' => 'The category not found',
+                    'delete_error' => 'Remove category fail',
+                    'delete_error1451' => 'Information is being used, can not be deleted',
+                ],
+            ],
+            'table' => [
+                'title' => 'Categories',
+                'search_placeholder' => 'Please enter the keyword...',
+                'id' => '#',
+                'name' => 'Name',
+                'description' => 'Description',
+                'no_results' => 'No results',
+                'edit_button_title' => 'Edit category',
+                'remove_button_title' => 'Remove',
+                'message' => [
+                    'delete_confirm' => 'Do you want to remove this category?',
+                ],
+            ],
+        ],
+    ],
+    'comment' => [
+        'index' => [
+            'title' => 'Comments',
+            'table' => [
+                'title' => 'Comments',
+                'search_placeholder' => 'Please enter the keyword...',
+                'id' => '#',
+                'content' => 'Content',
+                'post' => 'post',
+                'user' => 'User',
+                'created_at' => 'Comment Date',
+                'status' => 'Status',
+                'no_results' => 'No results',
+                'remove_button_title' => 'Remove',
+                'message' => [
+                    'delete_confirm' => 'Do you want to remove this comment?',
+                ],
+            ],
+        ],
+        'delete' => [
+            'message' => [
+                'delete_success' => 'Remove comment successfully',
+                'not_found' => 'The comment not found',
+                'delete_error' => 'Remove comment fail',
+            ],
+        ],
+    ],
 ];

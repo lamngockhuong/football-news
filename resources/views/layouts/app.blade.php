@@ -39,7 +39,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('comments.index') }}">
                     <i class="glyphicon glyphicon-comment"></i>
                     <p>@lang('admin.sidebar_menu.comment')</p>
                 </a>

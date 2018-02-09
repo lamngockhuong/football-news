@@ -6,19 +6,19 @@ use DB;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use App\Models\League;
-use App\Http\Requests\LeagueRequest;
+use App\Models\Category;
+use App\Http\Requests\CategoryRequest;
 use App\Exception\RepositoryException;
 use App\Http\Controllers\Controller;
-use App\Repositories\Contracts\LeagueRepositoryInterface;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 
 class CategoryController extends Controller
 {
-    protected $leagueRepository;
+    protected $categoryRepository;
 
-    public function __construct(LeagueRepositoryInterface $leagueRepository)
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
-        $this->leagueRepository = $leagueRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -28,46 +28,46 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('access', League::class);
+        $this->authorize('access', Category::class);
         // q: query parameter
         $keyword = $request->q;
 
         if (isset($keyword)) {
-            $leagues = $this->leagueRepository->search($keyword, config('repository.pagination.limit'));
-            $leagues->appends($request->only('q'));
+            $categories = $this->categoryRepository->search($keyword, config('repository.pagination.limit'));
+            $categories->appends($request->only('q'));
         } else {
-            $leagues = $this->leagueRepository->leagues(config('repository.pagination.limit'), [['id', 'desc']]);
+            $categories = $this->categoryRepository->categories(config('repository.pagination.limit'));
         }
 
-        return view('admin.league.index', compact('leagues'));
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\LeagueRequest  $request
+     * @param  App\Http\Requests\CategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LeagueRequest $request)
+    public function store(CategoryRequest $request)
     {
-        $this->authorize('access', League::class);
+        $this->authorize('access', Category::class);
         try {
-            $this->leagueRepository->create($request->all());
+            $this->categoryRepository->create($request->all());
 
-            $message = trans('admin.league.index.add.message.add_success');
+            $message = trans('admin.category.index.add.message.add_success');
             $notification = [
                 'message' => $message,
                 'type' => 'success',
             ];
         } catch (Exception $e) {
-            $message = trans('admin.league.index.add.message.add_error');
+            $message = trans('admin.category.index.add.message.add_error');
             $notification = [
                 'message' => $message,
                 'type' => 'danger',
             ];
         }
 
-        return redirect()->back()->with('notification', $notification);
+        return back()->with('notification', $notification);
     }
 
     /**
@@ -78,51 +78,51 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $this->authorize('access', League::class);
+        $this->authorize('access', Category::class);
         try {
-            $league = $this->leagueRepository->find($id); // throw RepositoryException when can not found
-            $leagues = $this->leagueRepository->leagues(config('repository.pagination.limit'), [['id', 'desc']]);
+            $category = $this->categoryRepository->find($id); // throw RepositoryException when can not found
+            $categories = $this->categoryRepository->categories(config('repository.pagination.limit'), [['id', 'desc']]);
 
-            return view('admin.league.index', compact('league', 'leagues'));
+            return view('admin.category.index', compact('category', 'categories'));
         } catch (RepositoryException $e) {
-            $message = trans('admin.league.index.edit.message.not_found');
+            $message = trans('admin.category.index.edit.message.not_found');
             $notification = [
                 'message' => $message,
                 'type' => 'danger',
             ];
 
-            return redirect()->back()->with('notification', $notification);
+            return back()->with('notification', $notification);
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Http\Requests\LeagueRequest  $request
+     * @param  App\Http\Requests\CategoryRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(LeagueRequest $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        $this->authorize('access', League::class);
+        $this->authorize('access', Category::class);
         try {
-            $league = $this->leagueRepository->find($id); // throw RepositoryException when can not found
-            $this->leagueRepository->update($request->all(), $league);
-            $message = trans('admin.league.index.edit.message.edit_success');
+            $category = $this->categoryRepository->find($id); // throw RepositoryException when can not found
+            $this->categoryRepository->update($request->all(), $category);
+            $message = trans('admin.category.index.edit.message.edit_success');
             $notification = [
                 'message' => $message,
                 'type' => 'success',
             ];
 
-            return redirect()->route('leagues.index')->with('notification', $notification);
+            return redirect()->route('categories.index')->with('notification', $notification);
         } catch (RepositoryException $e) {
-            $message = trans('admin.league.index.edit.message.not_found');
+            $message = trans('admin.category.index.edit.message.not_found');
             $notification = [
                 'message' => $message,
                 'type' => 'danger',
             ];
 
-            return redirect()->back()->with('notification', $notification);
+            return back()->with('notification', $notification);
         }
     }
 
@@ -134,34 +134,34 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('access', League::class);
+        $this->authorize('access', Category::class);
         try {
-            $this->leagueRepository->find($id); // throw RepositoryException when can not found
-            $this->leagueRepository->delete($id);
+            $this->categoryRepository->find($id); // throw RepositoryException when can not found
+            $this->categoryRepository->delete($id);
 
-            $message = trans('admin.league.index.delete.message.delete_success');
+            $message = trans('admin.category.index.delete.message.delete_success');
             $notification = [
                 'message' => $message,
                 'type' => 'success',
             ];
         } catch (RepositoryException $e) {
-            $message = trans('admin.league.index.delete.message.not_found');
+            $message = trans('admin.category.index.delete.message.not_found');
             $notification = [
                 'message' => $message,
                 'type' => 'danger',
             ];
         } catch (QueryException $e) {
-            $message = trans('admin.league.index.delete.message.delete_error' . $e->errorInfo[1]);
+            $message = trans('admin.category.index.delete.message.delete_error' . $e->errorInfo[1]);
             $notification = [
                 'message' => $message,
                 'type' => 'danger',
             ];
         }
 
-        if (str_contains(url()->previous(), route('leagues.edit', ['id' => $id]))) {
-            return redirect()->route('leagues.index')->with('notification', $notification);
+        if (str_contains(url()->previous(), route('categories.edit', ['id' => $id]))) {
+            return redirect()->route('categories.index')->with('notification', $notification);
         }
 
-        return redirect()->back()->with('notification', $notification);
+        return back()->with('notification', $notification);
     }
 }

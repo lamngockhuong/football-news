@@ -7,8 +7,8 @@ Route::namespace('Auth')->group(function () {
     Route::get('verify/{token}', 'RegisterController@verify')->name('auth.verify');
     Route::get('resend/{basecode}', 'RegisterController@resendConfirmLink')->name('auth.resend_confirm_link');
 });
-    
-Route::middleware(['auth'])->namespace('Admin')->prefix('cpanel')->group(function () {
+
+Route::middleware(['auth', 'admin'])->namespace('Admin')->prefix('cpanel')->group(function () {
     Route::get('', 'HomeController@index')->name('admin.home');
     Route::resource('countries', 'CountryController', ['except' => ['create', 'show']]);
     Route::resource('leagues', 'LeagueController', ['except' => ['create', 'show']]);
@@ -32,6 +32,8 @@ Route::middleware(['auth'])->namespace('Admin')->prefix('cpanel')->group(functio
     Route::delete('match-events/trash/{id}', 'MatchEventController@trash')->name('match-events.trash');
     Route::delete('match-events/untrash/{id}', 'MatchEventController@untrash')->name('match-events.untrash');
     Route::put('match-events/active/{id}', 'MatchEventController@active')->name('match-events.active')->where(['id' => '[0-9]+']);
+    Route::resource('comments', 'CommentController', ['except' => ['create', 'show']]);
+    Route::put('comments/active/{id}', 'CommentController@active')->name('comments.active')->where(['id' => '[0-9]+']);
 });
 
 Route::middleware(['auth'])->prefix('user')->group(function () {
