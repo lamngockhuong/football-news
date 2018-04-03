@@ -12,10 +12,26 @@ class LeagueRepository extends BaseRepository implements LeagueRepositoryInterfa
         return League::class;
     }
 
-    public function leagues($numberPerPage)
+    public function leagues(...$args)
     {
-        return $this->orderBy('id', 'desc')
-            ->paginate($numberPerPage);
+        $count = count($args);
+        switch ($count) {
+            case 2:
+                // retrieve all leagues or by pagination
+                $number = $args[0];
+                $orders = $args[1];
+                $repository = $this;
+                foreach ($orders as $order) {
+                    $repository = $repository->orderBy($order[0], $order[1]);
+                }
+
+                switch ($number) {
+                    case config('repository.pagination.all'):
+                        return $repository->all();
+                    case config('repository.pagination.limit'):
+                        return $repository->paginate($number);
+                }
+        }
     }
 
     public function search($keyword)

@@ -68,5 +68,35 @@ class AppServiceProvider extends ServiceProvider
             Contracts\PositionRepositoryInterface::class,
             Eloquent\PositionRepository::class
         );
+
+        $this->app->bind(
+            Contracts\PlayerAwardRepositoryInterface::class,
+            Eloquent\PlayerAwardRepository::class
+        );
+
+        $this->app->bind(
+            Contracts\TeamAchievementRepositoryInterface::class,
+            Eloquent\TeamAchievementRepository::class
+        );
+
+        $this->app->bind(
+            Contracts\BetRepositoryInterface::class,
+            Eloquent\BetRepository::class
+        );
+
+        $this->app->bind(
+            Contracts\CategoryRepositoryInterface::class,
+            Eloquent\CategoryRepository::class
+        );
+        
+        $this->app->bind(
+            Contracts\MatchEventRepositoryInterface::class,
+            Eloquent\MatchEventRepository::class
+        );
+
+        $this->app->bind(
+            Contracts\CommentRepositoryInterface::class,
+            Eloquent\CommentRepository::class
+        );
     }
 }

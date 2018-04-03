@@ -26,7 +26,7 @@
                             <div class="author-header">
                                 <h2>{{ $post->title }}</h2>
                                 <div class="aurhor-img-name pull-left">
-                                    <img src="{{ $post->user->avatar }}" alt="" width="48" height="48">
+                                    <img src="{{ $post->user->avatar_url }}" onerror='this.src="{{ asset('images/no-image.png') }}"' alt="" width="48" height="48">
                                     <strong>@lang('public.post.show.by') <i class="red-color">{{ $post->user->name }}</i></strong>
                                     <span>@lang('public.post.show.on_date') {{ $post->publishDate }} </span>
                                 </div>
@@ -65,7 +65,7 @@
                             </article>
                             <div class="blog-detail">
                                 <figure>
-                                    <img src="{{ $post->image }}" alt="">
+                                    <img src="{{ $post->image_url }}" onerror='this.src="{{ asset('images/no-image.png') }}"' alt="">
                                 </figure>
                                 <article>
                                     {{ $post->content }}
@@ -101,7 +101,7 @@
                             <div class="next-prev-option">
                                 @if ($prevPost)
                                     <a href="{{ $prevPost->url }}" class="prev-blog pull-left">
-                                        <img src="{{ $prevPost->image }}" alt="{{ $prevPost->title }}" width="112" height="71">
+                                        <img src="{{ $prevPost->image_url }}" onerror='this.src="{{ asset('images/no-image.png') }}"' alt="{{ $prevPost->title }}" width="112" height="71">
                                         <span><i class="fa fa-angle-left"></i>@lang('public.post.show.previous_post')</span>
                                         <h5>{{ $prevPost->title }}</h5>
                                         <span class="m-0">{{ $prevPost->publishDate }}</span>
@@ -109,7 +109,7 @@
                                 @endif
                                 @if ($nextPost)
                                     <a href="{{ $nextPost->url }}" class="next-blog pull-right">
-                                        <img src="{{ $nextPost->image }}" alt="{{ $nextPost->title }}" width="112" height="71">
+                                        <img src="{{ $nextPost->image_url }}" onerror='this.src="{{ asset('images/no-image.png') }}"' alt="{{ $nextPost->title }}" width="112" height="71">
                                         <span>@lang('public.post.show.next_post')<i class="fa fa-angle-right"></i></span>
                                         <h5>{{ $nextPost->title }}</h5>
                                         <span class="m-0">{{ $nextPost->publishDate }}</span>
@@ -118,7 +118,7 @@
                             </div>
                             <div class="about-aurthor-holder theme-margin-bottom">
                                 <div class="about-aurthor">
-                                    <img src="{{ $post->user->avatar }}" alt="" width="80" height="80">
+                                    <img src="{{ $post->user->avatar_url }}" onerror='this.src="{{ asset('images/no-image.png') }}"' alt="" width="80" height="80">
                                     <h5>
                                         {{ $post->user->name }} <i class="red-color">(@lang('public.post.show.author_level.' . $post->user->is_admin ))</i>
                                     </h5>
@@ -127,6 +127,72 @@
                             </div>
                         </div>
                         <!-- Blog Detail -->
+                        
+                        <!-- Comment Section -->
+                        <div class="comment-holder theme-padding-bottom">
+                            <h2>@lang('public.post.show.comment.latest_comments')</h2>
+                            @if (!count($comments))
+                                <div class="no-comments">@lang('public.post.show.comment.no_comments')</div>
+                            @endif
+                            <ul>
+                                @forelse ($comments as $comment)
+                                    <li>
+                                        <img class="position-center-x" src="{{ $comment->user->avatar_url }}"
+                                            onerror='this.src="{{ asset(' images/no-image.png ') }}"'
+                                            width="80"
+                                            height="80">
+                                        <div class="comment-detail">
+                                            <h5><a href="#">{{ $comment->user->name }}</a></h5>
+                                            <span>{{ $comment->comment_date }}</span>
+                                            <p>{{ $comment->content }}</p>
+                                            @if (auth()->user()->id == $comment->user_id)
+                                                <div class="comment-action">
+                                                    <a class="reply-btn edit-comment" href="javascript:void(0)" data-url='{{ route('post.edit-comment', ['comment' => $comment->id]) }}'>
+                                                        <i class="fa fa-edit"></i>@lang('public.post.show.comment.edit')
+                                                    </a>
+                                                    <a class="reply-btn delete-comment" href="javascript:void(0)" data-url='{{ route('post.delete-comment', ['comment' => $comment->id]) }}'>
+                                                        <i class="fa fa-times"></i>@lang('public.post.show.comment.delete')
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <!-- Comment Section -->
+
+                        <!-- Leave a Reply  -->
+                        <div class="leave-a-reply">
+                            <h2>@lang('public.post.show.comment.leave_comment')</h2>
+                            @if (auth()->guest())
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    @lang('public.post.show.comment.please_login')
+                                    <a href="#" data-toggle="modal" data-target="#login-modal">
+                                        @lang('public.post.show.comment.login')
+                                    </a>
+                                </div>
+                            </div>
+                            @else
+                            <form class="row blog-comment" action="javascript:void(0)" data-url="{{ route('post.comment', ['post' => $post->id]) }}">
+                                <div class="col-sm-12">
+                                    <div class="message">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control style-d" rows="11" id="comment" placeholder="@lang('public.post.show.comment.content_placeholder')"></textarea>
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button class="btn red-btn full-width">
+                                        @lang('public.post.show.comment.comment_button')
+                                    </button>
+                                </div>
+                            </form>
+                            @endif
+                        </div>
+                        <!-- Leave a Reply  -->
                     </div>
                     <!-- Blog Content -->
 

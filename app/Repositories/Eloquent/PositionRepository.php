@@ -26,4 +26,11 @@ class PositionRepository extends BaseRepository implements PositionRepositoryInt
                 return $repository->paginate($number);
         }
     }
+
+    public function search($keyword)
+    {
+        return $this->where('name', 'like', "%$keyword%")
+            ->orWhere('description', 'like', "%$keyword%")
+            ->paginate(config('repository.pagination.limit'));
+    }
 }

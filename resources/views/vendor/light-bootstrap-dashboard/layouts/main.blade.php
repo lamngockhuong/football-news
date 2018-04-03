@@ -11,6 +11,7 @@
     <!-- Styles -->
     @section('styles')
         {{ Html::style(mix('/css/light-bootstrap-dashboard.css')) }}
+        {{ Html::style('templates/admin/css/bootstrap-datetimepicker.min.css') }}
     @show
     @stack('head')
 </head>
@@ -23,6 +24,10 @@
         {{ Html::script(mix('/js/manifest.js')) }}
         {{ Html::script(mix('/js/vendor.js')) }}
         {{ Html::script(mix('/js/light-bootstrap-dashboard.js')) }}
+        {{ Html::script('templates/admin/js/moment.js') }}
+        {{ Html::script('templates/admin/js/bootstrap-datetimepicker.min.js') }}
+        {{ Html::script('templates/public/js/countdown.js') }}
+        {{ Html::script('js/ckeditor/ckeditor.js') }}
     @show
     @stack('body')
 </body>

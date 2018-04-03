@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <div class="content table-responsive table-full-width">
-                        
+
                         <table class="table table-hover table-striped">
                             <thead>
                                 <th>@lang('admin.country.index.table.id')</th>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Bet extends Model
@@ -25,5 +26,10 @@ class Bet extends Model
     public function match()
     {
         return $this->belongsTo(Match::class);
+    }
+
+    public function getBettingDateAttribute()
+    {
+        return Carbon::parse($this->attributes['created_at'])->format('H:i d/m/Y');
     }
 }

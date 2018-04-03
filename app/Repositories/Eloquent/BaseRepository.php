@@ -43,6 +43,11 @@ abstract class BaseRepository implements RepositoryInterface
         return $model;
     }
 
+    public function count()
+    {
+        return $this->model->count();
+    }
+
     public function find($id, $columns = ['*'])
     {
         try {
@@ -150,6 +155,14 @@ abstract class BaseRepository implements RepositoryInterface
         return $model;
     }
 
+    public function updateOrCreate(array $attributes, array $values = [])
+    {
+        $model = $this->model->updateOrCreate($attributes, $values);
+        $this->resetModel();
+
+        return $model;
+    }
+
     public function update(array $attributes, $model)
     {
         if (!$model instanceof Model) {
@@ -177,6 +190,28 @@ abstract class BaseRepository implements RepositoryInterface
     public function orderBy($column, $option = 'asc')
     {
         $this->model = $this->model->orderBy($column, $option);
+
+        return $this;
+    }
+
+    public function groupBy($colunms)
+    {
+        $colunms = is_array($colunms) ? $colunms : [$colunms];
+        $this->model = $this->model->groupBy($colunms);
+
+        return $this;
+    }
+
+    public function onlyTrashed()
+    {
+        $this->model = $this->model->onlyTrashed();
+
+        return $this;
+    }
+
+    public function withTrashed()
+    {
+        $this->model = $this->model->withTrashed();
 
         return $this;
     }

@@ -38,6 +38,11 @@ class PlayerRepository extends BaseRepository implements PlayerRepositoryInterfa
         }
     }
 
+    public function playersForForm()
+    {
+        return $this->orderBy('name', 'asc')->all();
+    }
+
     public function search($keyword)
     {
         return $this->with(['country', 'team', 'position'])

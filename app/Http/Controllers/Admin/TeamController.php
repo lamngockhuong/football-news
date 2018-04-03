@@ -8,6 +8,7 @@ use Exception;
 use Input;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\Team;
 use App\Http\Requests\TeamRequest;
 use App\Exception\RepositoryException;
 use App\Http\Controllers\Controller;
@@ -34,6 +35,7 @@ class TeamController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('access', Team::class);
         // q: query parameter
         $keyword = $request->q;
 
@@ -56,6 +58,7 @@ class TeamController extends Controller
      */
     public function store(TeamRequest $request)
     {
+        $this->authorize('access', Team::class);
         try {
             $path = $this->upload($request, config('setting.public_team_logo'));
             $request->merge(['logo' => $path]);
@@ -86,6 +89,7 @@ class TeamController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('access', Team::class);
         try {
             $team = $this->teamRepository->find($id); // throw RepositoryException when can not found
             $teams = $this->teamRepository->teams(config('repository.pagination.limit'), [['id', 'desc']]);
@@ -112,6 +116,7 @@ class TeamController extends Controller
      */
     public function update(TeamRequest $request, $id)
     {
+        $this->authorize('access', Team::class);
         try {
             $team = $this->teamRepository->find($id); // throw RepositoryException when can not found
             $path = $this->upload($request, config('setting.public_team_logo'));
@@ -148,6 +153,7 @@ class TeamController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('access', Team::class);
         try {
             $team = $this->teamRepository->find($id); // throw RepositoryException when can not found
             Storage::delete($team->logo);
@@ -172,7 +178,11 @@ class TeamController extends Controller
             ];
         }
 
-        return redirect()->route('teams.index')->with('notification', $notification);
+        if (str_contains(url()->previous(), route('teams.edit', ['id' => $id]))) {
+            return redirect()->route('teams.index')->with('notification', $notification);
+        }
+
+        return redirect()->back()->with('notification', $notification);
     }
 
     private function upload(Request $request, $directory, $directoryWithDate = true)

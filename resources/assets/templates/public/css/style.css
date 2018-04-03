@@ -1599,3 +1599,8 @@ filter: blur(3px); }
 .large-post-detail p a {
     display: inline;
 }
+
+.comment-action a {
+    margin-right: 15px;
+    display: inline-block;
+}

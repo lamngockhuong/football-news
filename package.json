@@ -28,6 +28,7 @@
     },
     "dependencies": {
         "bootstrap-social": "^5.1.1",
+        "ckeditor": "^4.8.0",
         "icomoon": "^1.0.0"
     }
 }

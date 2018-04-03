@@ -151,6 +151,180 @@ $(document).ready(function () {
     $('.delete-button').click(function () {
         return confirm($(this).data('delete-confirm'));
     });
+
+    // match time
+    $('#starttime').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm:ss',
+    });
+    $('#endtime').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm:ss',
+        useCurrent: false,
+    });
+    $("#starttime").on("dp.change", function (e) {
+        $('#endtime').data("DateTimePicker").minDate(e.date);
+    });
+    $("#endtime").on("dp.change", function (e) {
+        $('#starttime').data("DateTimePicker").maxDate(e.date);
+    });
+
+    // league ranking select
+    $('#league-ranking-select').change(function () {
+        var league = $(this).val();
+        if (league > 0) {
+            location.href = '?' + $(this).attr('name') + '=' + $(this).val();
+        } else {
+            location.href = location.href.split('?')[0];
+        }
+    });
+
+    // edit ranking point
+    $('[id^=edit-ranking-point-], [id^=ranking-point-] span').on('click', function (i) {
+        var id = $(this).data('id');
+        var span = $('#ranking-point-' + id + ' span');
+        var input = $('#ranking-point-' + id + ' input');
+        var status = span.css('display');
+        span.css('display', input.css('display'));
+        input.css('display', status);
+        i.stopPropagation();
+    });
+
+    $('[id^=ranking-point-] input').on('click', function (i) {
+        i.stopPropagation();
+    });
+
+    $('[id^=ranking-point-] input').change(function (i) {
+        var point = $(this).val();
+        $.post($(this).data('url'), {
+            _method: 'PUT',
+            point: point,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        }, function (data, status) {
+            location.href = '';
+        });
+        i.stopPropagation();
+    });
+
+    $(document).click(function () {
+        $('[id^=ranking-point-] input').hide();
+        $('[id^=ranking-point-] span').show();
+    });
+
+    // mamage bets and user bet
+    var countdown;
+
+    $.fn.checkError = function () {
+        if ($(".help-block").text()) {
+            showForm($("#match_id"));
+        }
+    }
+
+    $("#match_id").change(function () {
+        showForm($("#match_id"));
+    });
+
+    $('.help-block').checkError();
+
+    function showForm(obj) {
+        var id = obj.val();
+        if (id > 0) {
+            $('.place-bet-match .col-md-12').addClass('col-md-6');
+            $('.place-bet-match .col-md-6').removeClass('col-md-12');
+            $('.place-bet').removeClass('hidden');
+
+            var optionSelected = $('option:selected', obj);
+
+            $('.place-bet label[for="team1_goal"]').text(optionSelected.data('team1'));
+            $('.place-bet label[for="team2_goal"]').text(optionSelected.data('team2'));
+
+            var date = optionSelected.data('start-time');
+            clearInterval(countdown);
+            // Set the date we're counting down to
+            var countDownDate = new Date(date).getTime();
+            // Update the count down every 1 second
+            countdown = setInterval(function () {
+
+                // Get todays date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now an the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                $('.place-bet-match .place-bet .countdown').val(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
+            }, 1000);
+        } else {
+            clearInterval(countdown);
+            $('.place-bet').addClass('hidden');
+            $('.place-bet-match .col-md-6').addClass('col-md-12');
+            $('.place-bet-match .col-md-12').removeClass('col-md-6');
+        }
+    }
+
+    $('.switch-button input').on('change', function () {
+        var isChecked = $(this).is(':checked');
+        var active;
+        if (isChecked) {
+            isActived = 1;
+        } else {
+            isActived = 0;
+        }
+        $.ajax({
+            url: $(this).data('url'),
+            method: 'POST',
+            value: {
+                this: $(this),
+            },
+            data: {
+                _method: 'PUT',
+                is_actived: isActived,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            error: function (result) {
+                this.value.this.prop("checked", !isChecked);
+            },
+        });
+    });
+
+    /* CKEditor */
+    if ($('#content').length != 0) {
+        CKEDITOR.replace('content', {
+            height: 500,
+            filebrowserBrowseUrl: '/js/ckfinder/ckfinder.html',
+            filebrowserImageBrowseUrl: '/js/ckfinder/ckfinder.html?type=Images',
+            filebrowserFlashBrowseUrl: '/js/ckfinder/ckfinder.html?type=Flash',
+            filebrowserUploadUrl: '/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserImageUploadUrl: '/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+            filebrowserFlashUploadUrl: '/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+        });
+    }
+
+    /* Image preview */
+    $(".upload-image input#image").on('change', function () {
+        var files = !!this.files ? this.files : [];
+        if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+        if (/^image/.test(files[0].type)) { // only image file
+            var reader = new FileReader(); // instance of the FileReader
+            reader.readAsDataURL(files[0]); // read the local file
+
+            reader.onloadend = function () { // set image data as background of div
+                $('#image-preview').css('background-image', 'url(' + this.result + ')');
+                $('#image-preview').css('display', 'inline-block');
+            }
+        }
+    });
+
+    /* Edit page with image preview */
+    if ($('#image-preview').data('src')) {
+        $('#image-preview').css('background-image', 'url(' + $('#image-preview').data('src') + ')');
+        $('#image-preview').css('display', 'inline-block');
+    }
+
 });
 
 // activate collapse right menu when the windows is resized

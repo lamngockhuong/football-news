@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\Country;
 use App\Exception\RepositoryException;
 use App\Http\Requests\CountryRequest;
 use App\Http\Controllers\Controller;
@@ -21,6 +22,7 @@ class CountryController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('access', Country::class);
         // q: query parameter
         $keyword = $request->q;
 
@@ -36,6 +38,7 @@ class CountryController extends Controller
 
     public function store(CountryRequest $request)
     {
+        $this->authorize('access', Country::class);
         try {
             $inputs = $request->only('name');
             $this->countryRepository->create($inputs);
@@ -58,6 +61,7 @@ class CountryController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('access', Country::class);
         try {
             $country = $this->countryRepository->find($id); // throw RepositoryException when can not found
             $countries = $this->countryRepository->countries(config('repository.pagination.limit'), [['id', 'desc']]);
@@ -76,6 +80,7 @@ class CountryController extends Controller
 
     public function update(CountryRequest $request, $id)
     {
+        $this->authorize('access', Country::class);
         try {
             $country = $this->countryRepository->find($id); // throw RepositoryException when can not found
             $inputs = $request->only('name');
@@ -100,6 +105,7 @@ class CountryController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('access', Country::class);
         try {
             $this->countryRepository->find($id); // throw RepositoryException when can not found
             $this->countryRepository->delete($id);
@@ -123,6 +129,10 @@ class CountryController extends Controller
             ];
         }
 
-        return redirect()->route('countries.index')->with('notification', $notification);
+        if (str_contains(url()->previous(), route('countries.edit', ['id' => $id]))) {
+            return redirect()->route('countries.index')->with('notification', $notification);
+        }
+
+        return redirect()->back()->with('notification', $notification);
     }
 }

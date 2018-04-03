@@ -3,12 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
-    use SoftDeletes;
-
     /**
      * @var array
      */
@@ -18,8 +15,6 @@ class Comment extends Model
         'content',
         'status',
     ];
-    
-    protected $dates = ['deleted_at'];
 
     public function user()
     {
@@ -29,5 +24,10 @@ class Comment extends Model
     public function post()
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public function getCommentDateAttribute()
+    {
+        return $this->created_at->format('H:i d/m/Y');
     }
 }
